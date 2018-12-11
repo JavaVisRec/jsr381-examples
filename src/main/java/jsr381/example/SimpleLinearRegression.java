@@ -15,6 +15,26 @@ import javax.visrec.util.Builder;
  * 
  * https://en.wikipedia.org/wiki/Simple_linear_regression
  * @author Zoran Sevarac
+ * 
+ * where to specify model? also inputs and outputs
+ * do we need abstract Regressor to 
+ * 
+ * Regressor
+ * AbstractRegressor should wrap the model
+ * 
+ * How to specify input, output and model
+ * 
+ * Different implementation of that algorithm using different frameworks
+ * 
+ * AbstractLinearRegression
+ * 
+ * (Abstract class)  SimpleLinearRegression<MODEL_CLASS> implements Regressor<Double, Double>
+ * DeepNettsSimpleLinearRegression extends SimpleLinearRegression<FeedForwardNetwork>
+ * 
+ * (Abstract class)  MultipleLinearRegression<MODEL_CLASS> implements Regressor<double[], Double>
+ * DeepNettsMultipleLinearRegression extends MultipleLinearRegression<FeedForwardNetwork>
+ * 
+ * 
  */
 public final class SimpleLinearRegression implements Regressor<Double, Double> {
     
@@ -33,8 +53,6 @@ public final class SimpleLinearRegression implements Regressor<Double, Double> {
         return intercept;
     }
     
-    
-    
     public static SimpleLinearRegressionBuilder builder() {
         return new SimpleLinearRegressionBuilder();
     }
@@ -42,16 +60,17 @@ public final class SimpleLinearRegression implements Regressor<Double, Double> {
     public static class SimpleLinearRegressionBuilder implements Builder<SimpleLinearRegression> {
 
         FeedForwardNetwork ffn;
+        private int hiddenLayerWidth;
         
-        public SimpleLinearRegressionBuilder hiddenLayerWidth(int width) {
-            
+        public SimpleLinearRegressionBuilder hiddenLayerWidth(int hiddenLayerWidth) {
+            this.hiddenLayerWidth = hiddenLayerWidth;
         }
         
         @Override
         public SimpleLinearRegression build() {
             FeedForwardNetwork ffn = FeedForwardNetwork.builder()
                                             .addInputLayer(1)
-                                            .addDenseLayer(1)
+                                            .addDenseLayer(hiddenLayerWidth)
                                             .addOutputLayer(1, ActivationType.LINEAR)
                                             .build();
             return this;
