@@ -1,5 +1,7 @@
 package jsr381.example;
 
+import deepnetts.net.FeedForwardNetwork;
+import deepnetts.net.layers.activation.ActivationType;
 import java.util.Properties;
 import javax.visrec.regression.Regressor;
 import javax.visrec.util.Builder;
@@ -39,10 +41,20 @@ public final class SimpleLinearRegression implements Regressor<Double, Double> {
     
     public static class SimpleLinearRegressionBuilder implements Builder<SimpleLinearRegression> {
 
+        FeedForwardNetwork ffn;
+        
+        public SimpleLinearRegressionBuilder hiddenLayerWidth(int width) {
+            
+        }
+        
         @Override
         public SimpleLinearRegression build() {
-            // build linear regression using FeedForward netwrk from deep netts
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            FeedForwardNetwork ffn = FeedForwardNetwork.builder()
+                                            .addInputLayer(1)
+                                            .addDenseLayer(1)
+                                            .addOutputLayer(1, ActivationType.LINEAR)
+                                            .build();
+            return this;
         }
 
         @Override
