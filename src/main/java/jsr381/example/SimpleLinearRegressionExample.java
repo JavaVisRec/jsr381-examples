@@ -18,12 +18,16 @@ public class SimpleLinearRegressionExample {
         int outputsCount = 1;
         String delimiter = ",";
         
+        // create data set from csv file
         DataSet dataSet = BasicDataSet.fromCSVFile(new File(datasetFile), inputsCount, outputsCount, delimiter);        
         
+        // build model
         SimpleLinearRegression linReg = DeepNettsSimpleLinearRegression.builder()
-                                                    .trainingSet(dataSet)                                                   
-                                                    .build();    
-                
+                                                                       .trainingSet(dataSet)                                                   
+                                                                       .build();    
+                                                                       // maybe also provide test set and run evaluation after training automatically
+        
+        // use model         
         float someInput = 0.1f;  
         Float result = linReg.predict(someInput);
         
@@ -32,6 +36,7 @@ public class SimpleLinearRegressionExample {
        
         System.out.println("Model y = " + slope + " * x + "+intercept);
         
+        // evaluate model
     ///    PerformanceMetrics perfMetrics= evaluator.evaluate(linReg);
         
         // RSE = sqrt(RSS/(n-2))    estimate of error std, average amount of error that deviate from true regression line
