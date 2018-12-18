@@ -58,6 +58,16 @@ public class DeepNettsSimpleLinearRegression extends SimpleLinearRegression<Feed
             return this;
         }
         
+        public Builder maxError(float maxError) {
+            this.maxError = maxError;
+            return this;
+        }
+
+        public Builder maxEpochs(int maxEpochs) {
+            this.maxEpochs = maxEpochs;
+            return this;
+        }        
+        
         public Builder trainingSet(DataSet<?> trainingSet) {
             this.trainingSet = trainingSet;
             return this;

@@ -11,12 +11,21 @@ import javax.visrec.util.Builder;
  * 
  * @author Zoran Sevarac
  */
-public class LogisticRegression implements Classifier<double[], Boolean>{
+public abstract class LogisticRegression<MODEL_CLASS> implements Classifier<float[], Boolean>{ // better to return float instead of Map with boolean
 
-    @Override
-    public Map<Boolean, Float> classify(double[] someInput) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private MODEL_CLASS model;
+    
+    public MODEL_CLASS getModel() {
+        return model;
     }
+
+    protected void setModel(MODEL_CLASS model) {
+        this.model = model;
+    }
+    
+   
+    @Override
+    public abstract Map<Boolean, Float> classify(float[] someInput);
     
     public static class LogisticRegressionBuilder implements Builder<LogisticRegression> {
 

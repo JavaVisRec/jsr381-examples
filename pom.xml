@@ -24,6 +24,12 @@
             <artifactId>deepnetts-core-ce</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>org.knowm.xchart</groupId>
+            <artifactId>xchart</artifactId>
+            <version>3.5.2-SNAPSHOT</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 
     <repositories>
@@ -38,4 +44,8 @@
             </releases>
         </repository>
     </repositories>
+    <properties>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+    </properties>
 </project>
