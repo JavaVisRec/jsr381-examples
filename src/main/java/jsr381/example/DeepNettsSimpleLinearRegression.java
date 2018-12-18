@@ -1,56 +1,98 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jsr381.example;
 
+import deepnetts.data.DataSet;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
+import deepnetts.net.loss.LossType;
+import deepnetts.net.train.BackpropagationTrainer;
+import deepnetts.util.Tensor;
 import java.util.Properties;
 
 /**
  *
  * @author zoran
  */
-public class DeepNettsSimpleLinearRegression extends AbstractSimpleLinearRegression<FeedForwardNetwork>{
+public class DeepNettsSimpleLinearRegression extends SimpleLinearRegression<FeedForwardNetwork>{
 
-    public Double predict(Double inputs) {
-      //  getModel().setInput(inputs);
-      return 1d;
+    private float[] input = new float[1];
+    private Tensor inputTensor = Tensor.create(1, 1, input);
+    
+    private float slope;
+    private float intercept;
+    
+    public Float predict(Float inputs) {
+      input[0] = inputs;
+      FeedForwardNetwork ffn = getModel();
+      ffn.setInput(inputTensor);
+      float[] output = ffn.getOutput();
+      return output[0];
     }
     
     public static Builder builder() {
         return new Builder();
     }
+
+    @Override
+    public float getSlope() {
+        return slope;
+    }
+
+    @Override
+    public float getIntercept() {
+        return intercept;
+    }
+
     
     public static class Builder implements javax.visrec.util.Builder<DeepNettsSimpleLinearRegression> {
-        DeepNettsSimpleLinearRegression product = new DeepNettsSimpleLinearRegression();
+        private DeepNettsSimpleLinearRegression product = new DeepNettsSimpleLinearRegression();
         
-        int hiddenNeurons = 1;
-        float learningRate = 0.01f;
+        private float learningRate = 0.01f;
+        private float maxError = 0.03f;
+        private int maxEpochs = 1000;
         
-        // hidden neurons, learning rate, ...
-        public Builder hiddenNeurons(double hiddenNeurons) {
-            
-        }
+        private DataSet<?> trainingSet; // replace with DataSet from visrec
         
+
         public Builder learningRate(float learningRate) {
-            
+            this.learningRate = learningRate;
+            return this;
         }
+        
+        public Builder trainingSet(DataSet<?> trainingSet) {
+            this.trainingSet = trainingSet;
+            return this;
+        }
+        
+        // test set
+        // target accuracy
         
         public DeepNettsSimpleLinearRegression build() {
             FeedForwardNetwork model= FeedForwardNetwork.builder()
                                         .addInputLayer(1)
-                                        .addDenseLayer(5)   // ovo kao parametar -- minimmum parameters
                                         .addOutputLayer(1, ActivationType.LINEAR)
+                                        .withLossFunction(LossType.MEAN_SQUARED_ERROR)
                                         .build();
+            
+            BackpropagationTrainer trainer = new BackpropagationTrainer();
+            trainer.setLearningRate(learningRate)
+                    .setMaxError(0.005f);
+            trainer.train(model, trainingSet);
+            
+            product.intercept = model.getOutputLayer().getBiases()[0];
+            product.slope = model.getOutputLayer().getWeights().get(0);
+            
             product.setModel(model);
             return product;
         }
 
         public DeepNettsSimpleLinearRegression build(Properties prop) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            // set properties from prop
+            // iterate properties and set corresponding attributes using reflection - can be default method
+//            for(String propName : prop.keySet()) {
+//                
+//            }
+            
+            return build();
         }
         
         

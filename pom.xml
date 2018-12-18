@@ -19,6 +19,11 @@
             <artifactId>visrec-ri</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>deepnetts</groupId>
+            <artifactId>deepnetts-core-ce</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <repositories>

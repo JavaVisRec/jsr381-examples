@@ -1,27 +1,42 @@
 package jsr381.example;
 
+import deepnetts.data.BasicDataSet;
+import deepnetts.data.DataSet;
+import java.io.File;
+import java.io.IOException;
+
 /**
  *
  * @author zoran
  */
 public class SimpleLinearRegressionExample {
     
-    public static void main(String[] args) {
-        SimpleLinearRegression linReg = SimpleLinearRegression.builder()
-        //                                            .trainingSet(trainingSet)    
-                                                    //.withInputColumn("budget")    maybe set these on dataSet
-                                                    //.withTargetColumn("sales")                                                    
-                                                    .build();    
-    //    linReg.train(trainingSet); // umesto specifikacije u builderu - tako radi scikit learn
-       // linReg.test(testSet);
-        
-        double someInput = 0.1;  
-        double result = linReg.predict(someInput);
-        
+    public static void main(String[] args) throws IOException {
 
-        double slope = linReg.getSlope();
-        double intercept = linReg.getIntercept();      
+        String datasetFile = "SweedenAutoInsurance.csv";
+        int inputsCount = 1;
+        int outputsCount = 1;
+        String delimiter = ",";
         
+        DataSet dataSet = BasicDataSet.fromCSVFile(new File(datasetFile), inputsCount, outputsCount, delimiter);        
+        
+        SimpleLinearRegression linReg = DeepNettsSimpleLinearRegression.builder()
+                                                    .trainingSet(dataSet)                                                   
+                                                    .build();    
+                
+        float someInput = 0.1f;  
+        Float result = linReg.predict(someInput);
+        
+        float slope = linReg.getSlope();
+        float intercept = linReg.getIntercept();      
+       
+        System.out.println("Model y = " + slope + " * x + "+intercept);
+        
+    ///    PerformanceMetrics perfMetrics= evaluator.evaluate(linReg);
+        
+        // RSE = sqrt(RSS/(n-2))    estimate of error std, average amount of error that deviate from true regression line
+        // R2 = 1 - RSS/TSS         tells us does the regression explains variability in response Y, 1 is good, 0 bad
+       // System.out.println(perfMetrics);
         // TODO: plot data set and  line
         
     }
