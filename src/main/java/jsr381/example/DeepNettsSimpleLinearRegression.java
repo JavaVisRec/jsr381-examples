@@ -20,6 +20,7 @@ public class DeepNettsSimpleLinearRegression extends SimpleLinearRegression<Feed
     private float slope;
     private float intercept;
     
+    @Override
     public Float predict(Float inputs) {
       input[0] = inputs;
       FeedForwardNetwork ffn = getModel();
@@ -80,7 +81,7 @@ public class DeepNettsSimpleLinearRegression extends SimpleLinearRegression<Feed
             FeedForwardNetwork model= FeedForwardNetwork.builder()
                                         .addInputLayer(1)
                                         .addOutputLayer(1, ActivationType.LINEAR)
-                                        .withLossFunction(LossType.MEAN_SQUARED_ERROR)
+                                        .lossFunction(LossType.MEAN_SQUARED_ERROR)
                                         .build();
             
             BackpropagationTrainer trainer = new BackpropagationTrainer();

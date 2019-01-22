@@ -1,14 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jsr381.example;
+
+import deepnetts.net.FeedForwardNetwork;
+import java.util.Map;
 
 /**
  *
  * @author zoran
  */
-public class DeepNettsLogistigRegression {
+public class DeepNettsLogistigRegression extends LogisticRegression<FeedForwardNetwork>{
+
+    @Override
+    public Map<Boolean, Float> classify(float[] someInput) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    // TODO: add static builder class and method
+
     
 }

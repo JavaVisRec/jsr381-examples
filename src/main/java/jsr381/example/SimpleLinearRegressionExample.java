@@ -20,6 +20,7 @@ public class SimpleLinearRegressionExample {
         
         // create data set from csv file
         DataSet dataSet = BasicDataSet.fromCSVFile(new File(datasetFile), inputsCount, outputsCount, delimiter);        
+        // dta is normalized
         
         // build model
         SimpleLinearRegression linReg = DeepNettsSimpleLinearRegression.builder()
@@ -28,16 +29,21 @@ public class SimpleLinearRegressionExample {
                                                                        .maxError(0.01f)
                                                                        .build();    
                                                                        // maybe also provide test set and run evaluation after training automatically
-        
-        // use model         
-        float someInput = 0.1f;  
-        Float result = linReg.predict(someInput);
-        
+
         float slope = linReg.getSlope();
-        float intercept = linReg.getIntercept();      
-  
-        System.out.println("Model y = " + slope + " * x + "+intercept);
-                
+        float intercept = linReg.getIntercept();
+
+        System.out.println("Trained Model y = " + slope + " * x + " + intercept);
+
+        // use model         
+        float someInput = 0.10483871f;
+        Float prediction = linReg.predict(someInput);
+
+        System.out.println("predicted output for " + (someInput*124) + " is:" + (prediction*422.2));
+
+        
+        //
+        // Evaluators.evaluate();
         // evaluate model
     ///    PerformanceMetrics perfMetrics= evaluator.evaluate(linReg);
         

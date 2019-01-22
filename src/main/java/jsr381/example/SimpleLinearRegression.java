@@ -19,6 +19,7 @@ public abstract class SimpleLinearRegression<MODEL_CLASS> implements Regressor<F
         this.model = model;
     }
     
+    @Override
     public abstract Float predict(Float inputs);    
     
     /**
@@ -40,7 +41,7 @@ public abstract class SimpleLinearRegression<MODEL_CLASS> implements Regressor<F
     // ili da vracam parametre modela u mapi?
     // ili kao niz koeficijenata?
 
-    // performan ce measures
+    // performance measures
     // RSE
     // R2    
     
