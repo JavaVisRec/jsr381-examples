@@ -17,4 +17,5 @@ This is a quick "README" on how to manually install the dependencies on your loc
  * visrec-ri: `mvn install -Dmaven.test.skip=true -Dmaven.javadoc.skip=true`
  
  ## Finished
- Now you should be able to run all the examples in this repository!
+ Now you should be able to run all the examples in this repository. If you were reading the "Getting Started"
+ article, proceed on example 1 !
