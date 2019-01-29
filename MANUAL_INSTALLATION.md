@@ -12,7 +12,7 @@ This is a quick "README" on how to manually install the dependencies on your loc
  ## Deploy to local Maven
  Deploy (publish) all three cloned repositories to your local maven. Some repositories
  have their specified commands:
- * visrec-api: `mvn install -Dmaven.test.skip=true`
+ * visrec-api: `mvn install -Dmaven.test.skip=true -Dmaven.javadoc.skip=true`
  * deepnetts: change directory to `deepnetts-core/` and then `mvn install -Dmaven.test.skip=true -Dmaven.javadoc.skip=true`
  * visrec-ri: `mvn install -Dmaven.test.skip=true -Dmaven.javadoc.skip=true`
  
