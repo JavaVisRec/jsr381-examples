@@ -23,7 +23,7 @@ public class LogisticRegressionExample {
 
         // build logistic regression classifier
         LogisticRegression logReg  = DeepNettsLogisticRegression.builder()
-                                            .inputs(60)
+                                            .inputsNum(60)
                                             .trainingSet(dataSet)    // naming: fromTrainingSet,withTrainingSet, forTrainingSet, with, use?
                                             .learningRate(0.1f)
                                             .maxError(0.03f)

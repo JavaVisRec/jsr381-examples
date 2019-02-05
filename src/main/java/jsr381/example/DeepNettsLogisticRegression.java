@@ -17,10 +17,10 @@ import java.util.Properties;
 public class DeepNettsLogisticRegression extends LogisticRegression<FeedForwardNetwork>{
 
     @Override
-    public Map<Boolean, Float> classify(float[] someInput) {
-      FeedForwardNetwork ffn = getModel();
-      ffn.setInput(Tensor.create(1, someInput.length, someInput)); //TODO: put array to input tensor placeholder
-      float[] output = ffn.getOutput();
+    public Map<Boolean, Float> classify(float[] input) {
+      FeedForwardNetwork model = getModel();
+      model.setInput(Tensor.create(1, input.length, input)); //TODO: put array to input tensor placeholder
+      float[] output = model.getOutput();
       Map<Boolean, Float> result = new HashMap<>();
       result.put(Boolean.TRUE, output[0]);
       result.put(Boolean.FALSE, 1-output[0]);
@@ -43,7 +43,7 @@ public class DeepNettsLogisticRegression extends LogisticRegression<FeedForwardN
 
         private DataSet<?> trainingSet; // replace with DataSet from visrec
 
-        public Builder inputs(int inputsNum) {
+        public Builder inputsNum(int inputsNum) {
             this.inputsNum = inputsNum;
             return this;
         }
@@ -71,6 +71,7 @@ public class DeepNettsLogisticRegression extends LogisticRegression<FeedForwardN
         // test set
         // target accuracy
 
+        @Override
         public DeepNettsLogisticRegression build() {
             FeedForwardNetwork model= FeedForwardNetwork.builder()
                                         .addInputLayer(inputsNum)
@@ -81,7 +82,9 @@ public class DeepNettsLogisticRegression extends LogisticRegression<FeedForwardN
             BackpropagationTrainer trainer = new BackpropagationTrainer();
             trainer.setLearningRate(learningRate)
                     .setMaxError(maxError);
-            trainer.train(model, trainingSet);
+
+            if (trainingSet!=null)
+                trainer.train(model, trainingSet);
 
 
             product.setModel(model);

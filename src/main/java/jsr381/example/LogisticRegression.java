@@ -1,11 +1,7 @@
 package jsr381.example;
 
-import java.util.Map;
-import java.util.Properties;
 import javax.visrec.ml.classification.Classifier;
 //import javax.visrec.ml.data.DataSet;
-import deepnetts.data.DataSet;
-import javax.visrec.util.Builder;
 
 /**
  * This class performs basic binary classification - mapping of specified input to true/false with probability.
@@ -25,4 +21,5 @@ public abstract class LogisticRegression<MODEL_CLASS> implements Classifier<floa
     }
 
 
+    // add train method here so we can dow model.train()
 }
