@@ -29,6 +29,7 @@ public class MnistDemo {
         // prop.setProperty("visrec.model", "networkArchitecture.json");    // provide as json object or json file
                        // DeepNetts.VISREC_MODEL
         // TODO: specify architecture in json which library to use?  or
+        // consider https://www.khronos.org/nnef    and     https://onnx.ai/
         props.setProperty("visrec.model.deepnetts", MnistDemo.class.getResource("../../../../mnist1.json").getFile()); // Constant should be defined in DeepNetts.VISREC_MODEL
         // or set individual properties but that would be too heavy from here
         props.setProperty("visrec.model.saveToFile", MnistDemo.class.getResource("../../../../mnist.dnet").getFile());  // save trained model to file at the end
