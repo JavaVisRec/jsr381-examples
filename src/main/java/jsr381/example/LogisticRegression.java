@@ -7,6 +7,7 @@ import javax.visrec.ml.classification.Classifier;
  * This class performs basic binary classification - mapping of specified input to true/false with probability.
  *
  * @author Zoran Sevarac
+ * @param <MODEL_CLASS> Implementation class of underlying machine learning model
  */
 public abstract class LogisticRegression<MODEL_CLASS> implements Classifier<float[], Boolean>{ // better to return float instead of Map with boolean
 
