@@ -36,7 +36,7 @@ public class DeepNettsMultiClassClassifier extends MultiClassClassifier <FeedFor
 
         private float learningRate = 0.01f;
         private float maxError = 0.03f;
-        private int maxEpochs = 1000;
+        private long maxEpochs = Long.MAX_VALUE;
         private int inputsNum;
         private int outputsNum;
         private int[] hiddenLayers;
@@ -46,22 +46,26 @@ public class DeepNettsMultiClassClassifier extends MultiClassClassifier <FeedFor
         @Override
         public DeepNettsMultiClassClassifier build() {
             // Network architecture as Map/properties, json?
-            FeedForwardNetwork model =  FeedForwardNetwork.builder()
-                                          .addInputLayer(inputsNum)
-                                          .addFullyConnectedLayer(3)
-                                          .addFullyConnectedLayer(3)
-                                          .addFullyConnectedLayer(3)
-                                          .addOutputLayer(outputsNum, ActivationType.SOFTMAX)
-                                          .lossFunction(LossType.CROSS_ENTROPY)
-                                          .withActivationFunction(ActivationType.TANH)
-                                          .build();
+            FeedForwardNetwork.Builder builder =  FeedForwardNetwork.builder()
+                                                    .addInputLayer(inputsNum);
+            for(int h : hiddenLayers) {
+                builder.addFullyConnectedLayer(h);
+            }
 
-            BackpropagationTrainer trainer = new BackpropagationTrainer(); // model as param in constructor
+            builder.addOutputLayer(outputsNum, ActivationType.SOFTMAX)
+                    .lossFunction(LossType.CROSS_ENTROPY)
+                    .hiddenActivationFunction(ActivationType.TANH);
+
+            FeedForwardNetwork model = builder.build();
+
+            // aslo can be replaced with model.getTrainer()
+            BackpropagationTrainer trainer = new BackpropagationTrainer(model); // model as param in constructor
             trainer.setLearningRate(learningRate)
-                    .setMaxError(maxError);
+                    .setMaxError(maxError)
+                    .setMaxEpochs(maxEpochs);
 
             if (trainingSet!=null)
-                trainer.train(model, trainingSet); // move model to constructor
+                trainer.train(trainingSet); // move model to constructor
 
             product.setModel(model);
 

@@ -76,15 +76,16 @@ public class DeepNettsLogisticRegression extends LogisticRegression<FeedForwardN
             FeedForwardNetwork model= FeedForwardNetwork.builder()
                                         .addInputLayer(inputsNum)
                                         .addOutputLayer(1, ActivationType.SIGMOID)
-                                        .lossFunction(LossType.MEAN_SQUARED_ERROR)
+                                        .lossFunction(LossType.CROSS_ENTROPY)
                                         .build();
 
-            BackpropagationTrainer trainer = new BackpropagationTrainer();
+            BackpropagationTrainer trainer = new BackpropagationTrainer(model);
             trainer.setLearningRate(learningRate)
+                    .setMaxEpochs(maxEpochs)
                     .setMaxError(maxError);
 
             if (trainingSet!=null)
-                trainer.train(model, trainingSet);
+                trainer.train(trainingSet);
 
 
             product.setModel(model);
