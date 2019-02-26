@@ -93,7 +93,7 @@ public class DeepNettsLogisticRegression extends LogisticRegression<FeedForwardN
         }
 
         @Override
-        public DeepNettsLogisticRegression build(Properties prop) {
+        public DeepNettsLogisticRegression build(Map prop) {
             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
 

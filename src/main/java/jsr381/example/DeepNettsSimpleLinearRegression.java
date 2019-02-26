@@ -6,6 +6,7 @@ import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
 import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.util.Tensor;
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -77,6 +78,7 @@ public class DeepNettsSimpleLinearRegression extends SimpleLinearRegression<Feed
         // test set
         // target accuracy
 
+        @Override
         public DeepNettsSimpleLinearRegression build() {
             FeedForwardNetwork model= FeedForwardNetwork.builder()
                                         .addInputLayer(1)
@@ -96,7 +98,7 @@ public class DeepNettsSimpleLinearRegression extends SimpleLinearRegression<Feed
             return product;
         }
 
-        public DeepNettsSimpleLinearRegression build(Properties prop) {
+        public DeepNettsSimpleLinearRegression build(Map prop) {
             // set properties from prop
             // iterate properties and set corresponding attributes using reflection - can be default method
 //            for(String propName : prop.keySet()) {

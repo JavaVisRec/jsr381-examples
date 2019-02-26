@@ -97,7 +97,7 @@ public class DeepNettsMultiClassClassifier extends MultiClassClassifier <FeedFor
             return this;
         }
 
-        public Builder hiddenLayerSizes(int... hiddenLayers) {
+        public Builder hiddenLayers(int... hiddenLayers) {
             this.hiddenLayers = hiddenLayers;
             return this;
         }
@@ -108,7 +108,7 @@ public class DeepNettsMultiClassClassifier extends MultiClassClassifier <FeedFor
         }
 
         @Override
-        public DeepNettsMultiClassClassifier build(Properties prop) {
+        public DeepNettsMultiClassClassifier build(Map prop) {
             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
    }
