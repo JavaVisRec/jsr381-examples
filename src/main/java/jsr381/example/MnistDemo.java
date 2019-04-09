@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 import javax.visrec.AbstractImageClassifier;
 import javax.visrec.util.VisRecConstants;
 import visrec.ri.ml.classification.DeepNettsImageClassifier;
