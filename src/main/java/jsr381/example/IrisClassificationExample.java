@@ -2,7 +2,10 @@ package jsr381.example;
 
 import deepnetts.data.DataSet;
 import deepnetts.data.DataSets;
+import jsr381.example.util.DataSetExamples;
+
 import java.io.IOException;
+import java.net.URL;
 import java.util.Map;
 
 public class IrisClassificationExample {
@@ -10,7 +13,8 @@ public class IrisClassificationExample {
 
         // load iris data set
         //DataSet dataSet = BasicDataSet.fromCSVFile("iris_data_normalised.txt", 4, 3, ",");
-        DataSet dataSet = DataSets.readCsv("iris_data_normalised.txt", 4, 3, true);
+        DataSet dataSet = DataSetExamples.fromURL(new URL(" https://raw.githubusercontent.com/JavaVisRec/jsr381-examples-datasets/master/iris_data_normalised.txt"),
+                ",", 4, 3, true);
         DataSet[] trainAndTestSet = DataSets.trainTestSplit(dataSet, 0.7);
 
         // build multi class classifier using deep netts implementation of feed forward network under the hood
@@ -25,11 +29,9 @@ public class IrisClassificationExample {
                                                         .trainingSet(trainAndTestSet[0])
                                                         .build();
 
-        // evaluate data sets
-
         // use classifier to predict class
         Map<String, Float> results = classifier.classify(args);
-
+        System.out.println(results);
         // if training set is specified perform training when build is invoked, otherwice invoke train separetly from building, see bellow
         // if test set is specified also perform performance evalaution
         // performe entire standard ml workflow with meaningfull error messages if something is not right
