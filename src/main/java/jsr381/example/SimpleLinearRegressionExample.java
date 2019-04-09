@@ -2,8 +2,11 @@ package jsr381.example;
 
 import deepnetts.data.BasicDataSet;
 import deepnetts.data.DataSet;
+import jsr381.example.util.DataSetExamples;
+
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 /**
  * This example uses a Swedish Auto Insurance Dataset to predict the total
@@ -16,13 +19,13 @@ public class SimpleLinearRegressionExample {
 
     public static void main(String[] args) throws IOException {
         // Parameters to load the data set.
-        String datasetFile = "SwedenAutoInsurance.csv";
         int inputsCount = 1;
         int outputsCount = 1;
         String delimiter = ",";
-
         // Create a DataSet object from the local CSV file
-        DataSet dataSet = BasicDataSet.fromCSVFile(new File(datasetFile), inputsCount, outputsCount, delimiter);
+        DataSet dataSet = DataSetExamples.fromURL(new URL(" https://raw.githubusercontent.com/JavaVisRec/jsr381-examples-datasets/master/SwedenAutoInsurance.csv"),
+                delimiter, inputsCount, outputsCount, false);
+
 
 
         // Build the model
