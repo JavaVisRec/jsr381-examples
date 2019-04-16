@@ -27,9 +27,9 @@ public class LogisticRegressionExample {
         LogisticRegression logReg  = DeepNettsLogisticRegression.builder()
                                             .inputsNum(60)
                                             .trainingSet(dataSet)
-                                            .learningRate(0.2f)
+                                            .learningRate(0.01f)
                                             .maxError(0.03f)
-                                            .maxEpochs(500)
+                                            .maxEpochs(1500)
                                             .build();
 
         // Classify the input
