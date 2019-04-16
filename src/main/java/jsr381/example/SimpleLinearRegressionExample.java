@@ -23,7 +23,7 @@ public class SimpleLinearRegressionExample {
         int outputsCount = 1;
         String delimiter = ",";
         // Create a DataSet object from the local CSV file
-        DataSet dataSet = DataSetExamples.fromURL(new URL(" https://raw.githubusercontent.com/JavaVisRec/jsr381-examples-datasets/master/SwedenAutoInsurance.csv"),
+        DataSet dataSet = DataSetExamples.fromURL(new URL("https://raw.githubusercontent.com/JavaVisRec/jsr381-examples-datasets/master/SwedenAutoInsurance.csv"),
                 delimiter, inputsCount, outputsCount, false);
 
 

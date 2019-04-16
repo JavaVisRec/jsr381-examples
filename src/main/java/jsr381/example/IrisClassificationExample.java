@@ -2,6 +2,7 @@ package jsr381.example;
 
 import deepnetts.data.DataSet;
 import deepnetts.data.DataSets;
+import deepnetts.net.layers.activation.ActivationType;
 import jsr381.example.util.DataSetExamples;
 
 import java.io.IOException;
@@ -21,8 +22,8 @@ public class IrisClassificationExample {
         MultiClassClassifier classifier = DeepNettsMultiClassClassifier.builder()
                                                         .inputsNum(4)
                                                         .hiddenLayers(16)
-                                                        //.hiddenActivation() // todo
-                                                        .outputsNum(3)
+                                                        .hiddenActivation(ActivationType.RELU) // how to specify  activation function?  Deep Netts type or VisRec Constant
+                                                        .outputsNum(3)                          //I think its ok to use implementation specific type since this is specific impl
                                                         .maxEpochs(10000)
                                                         .maxError(0.05f)
                                                         .learningRate(0.01f)
