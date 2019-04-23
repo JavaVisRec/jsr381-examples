@@ -49,7 +49,7 @@ public class DeepNettsMultiClassClassifier extends MultiClassClassifier <FeedFor
             FeedForwardNetwork.Builder builder =  FeedForwardNetwork.builder()
                                                     .addInputLayer(inputsNum);
             for(int h : hiddenLayers) {
-                builder.addFullyConnectedLayer(h);
+                builder.addFullyConnectedLayer(h, ActivationType.TANH);
             }
 
             builder.addOutputLayer(outputsNum, ActivationType.SOFTMAX)

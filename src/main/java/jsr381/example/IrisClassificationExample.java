@@ -21,8 +21,8 @@ public class IrisClassificationExample {
         // build multi class classifier using deep netts implementation of feed forward network under the hood
         MultiClassClassifier classifier = DeepNettsMultiClassClassifier.builder()
                                                         .inputsNum(4)
-                                                        .hiddenLayers(16)
-                                                        .hiddenActivation(ActivationType.RELU) // how to specify  activation function?  Deep Netts type or VisRec Constant
+                                                        .hiddenLayers(16)                       // if its a common thing put it in the API
+                                                       // .hiddenActivation(ActivationType.RELU) // how to specify  activation function?  Deep Netts type or VisRec Constant
                                                         .outputsNum(3)                          //I think its ok to use implementation specific type since this is specific impl
                                                         .maxEpochs(10000)
                                                         .maxError(0.05f)
