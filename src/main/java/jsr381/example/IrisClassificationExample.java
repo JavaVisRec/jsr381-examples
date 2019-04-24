@@ -14,8 +14,7 @@ public class IrisClassificationExample {
 
         // load iris data set
         //DataSet dataSet = BasicDataSet.fromCSVFile("iris_data_normalised.txt", 4, 3, ",");
-        DataSet dataSet = DataSetExamples.fromURL(new URL(" https://raw.githubusercontent.com/JavaVisRec/jsr381-examples-datasets/master/iris_data_normalised.txt"),
-                ",", 4, 3, true);
+        DataSet dataSet = DataSetExamples.getIrisClassificationDataSet();
         DataSet[] trainAndTestSet = DataSets.trainTestSplit(dataSet, 0.7);
 
         // build multi class classifier using deep netts implementation of feed forward network under the hood

@@ -21,8 +21,7 @@ public class LogisticRegressionExample {
 
     public static void main(String[] args) throws IOException {
         // Get the DataSet from file location
-        DataSet dataSet = DataSetExamples.fromURL(new URL("https://raw.githubusercontent.com/JavaVisRec/jsr381-examples-datasets/master/sonar.csv"),
-                ",", 60, 1, false);
+        DataSet dataSet = DataSetExamples.getSonarDataSet();
         // Build logistic regression classifier
         LogisticRegression logReg  = DeepNettsLogisticRegression.builder()
                                             .inputsNum(60)

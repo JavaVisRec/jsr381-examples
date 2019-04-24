@@ -18,15 +18,8 @@ import java.net.URL;
 public class SimpleLinearRegressionExample {
 
     public static void main(String[] args) throws IOException {
-        // Parameters to load the data set.
-        int inputsCount = 1;
-        int outputsCount = 1;
-        String delimiter = ",";
-        // Create a DataSet object from the local CSV file
-        DataSet dataSet = DataSetExamples.fromURL(new URL("https://raw.githubusercontent.com/JavaVisRec/jsr381-examples-datasets/master/SwedenAutoInsurance.csv"),
-                delimiter, inputsCount, outputsCount, false);
-
-
+        // Create a DataSet object from the CSV file
+        DataSet dataSet = DataSetExamples.getSimpleLinearRegressionDataSet();
 
         // Build the model
         SimpleLinearRegression linReg = DeepNettsSimpleLinearRegression.builder()

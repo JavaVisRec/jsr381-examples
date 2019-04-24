@@ -34,7 +34,7 @@ public class DeepNettsLogisticRegression extends LogisticRegression<FeedForwardN
     // TODO: add static builder class and method
 
    public static class Builder implements javax.visrec.util.Builder<DeepNettsLogisticRegression> {
-        private DeepNettsLogisticRegression product = new DeepNettsLogisticRegression();
+
 
         private float learningRate = 0.01f;
         private float maxError = 0.03f;
@@ -87,7 +87,7 @@ public class DeepNettsLogisticRegression extends LogisticRegression<FeedForwardN
             if (trainingSet!=null)
                 trainer.train(trainingSet);
 
-
+            DeepNettsLogisticRegression product = new DeepNettsLogisticRegression();
             product.setModel(model);
             return product;
         }
