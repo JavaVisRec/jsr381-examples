@@ -1,11 +1,11 @@
 package jsr381.example;
 
-import deepnetts.data.BasicDataSet;
 import deepnetts.data.DataSet;
 import jsr381.example.util.DataSetExamples;
+import visrec.ri.regression.DeepNettsLogisticRegression;
 
+import javax.visrec.regression.LogisticRegression;
 import java.io.IOException;
-import java.net.URL;
 import java.util.Map;
 
 /**

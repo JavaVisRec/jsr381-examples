@@ -2,11 +2,11 @@ package jsr381.example;
 
 import deepnetts.data.DataSet;
 import deepnetts.data.DataSets;
-import deepnetts.net.layers.activation.ActivationType;
 import jsr381.example.util.DataSetExamples;
+import visrec.ri.ml.classification.DeepNettsMultiClassClassifier;
 
+import javax.visrec.ml.classification.MultiClassClassifier;
 import java.io.IOException;
-import java.net.URL;
 import java.util.Map;
 
 public class IrisClassificationExample {
