@@ -4,14 +4,18 @@ import deepnetts.data.BasicDataSet;
 import deepnetts.data.BasicDataSetItem;
 import deepnetts.util.DeepNettsException;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Enumeration;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 /**
  * @author Kevin Berendsen
@@ -75,6 +79,34 @@ public class DataSetExamples {
         return dataSet;
     }
 
+    public static File getMnistTestingDataSet() throws IOException {
+        File folder = Paths.get(System.getProperty("java.io.tmpdir"), "visrec-datasets", "mnist", "testing").toFile();
+
+        if (!folder.exists()) {
+            if (!folder.mkdirs()) {
+                throw new IOException("Couldn't create temporary directories to download the Mnist testing dataset.");
+            }
+        }
+
+        downloadZip("https://github.com/JavaVisRec/jsr381-examples-datasets/raw/master/mnist_testing_data_png.zip", folder);
+
+        return folder;
+    }
+
+    public static File getMnistTrainingDataSet() throws IOException {
+        File folder = Paths.get(System.getProperty("java.io.tmpdir"), "visrec-datasets", "mnist", "training").toFile();
+
+        if (!folder.exists()) {
+            if (!folder.mkdirs()) {
+                throw new IOException("Couldn't create temporary directories to download the Mnist training dataset.");
+            }
+        }
+
+        downloadZip("https://github.com/JavaVisRec/jsr381-examples-datasets/raw/master/mnist_training_data_png.zip", folder);
+
+        return folder;
+    }
+
     private static BasicDataSetItem toBasicDataSetItem(String line, String delimiter, int inputsNum, int outputsNum) {
         String[] values = line.split(delimiter);
         if (values.length != (inputsNum + outputsNum)) {
@@ -97,6 +129,68 @@ public class DataSetExamples {
         }
 
         return new BasicDataSetItem(in, out);
+    }
+
+    private static void downloadZip(String httpsURL, File basePath)  {
+        URL url = null;
+        try {
+            File toFile = new File(basePath, "temp.zip");
+            url = new URL(httpsURL);
+            ReadableByteChannel rbc = Channels.newChannel(url.openStream());
+            FileOutputStream fos = new FileOutputStream(toFile);
+            fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+            fos.close();
+            rbc.close();
+            unzip(toFile);
+            if (!toFile.delete()) {
+                toFile.deleteOnExit();
+            }
+        } catch (IOException ioException) {
+            throw new RuntimeException(ioException);
+        }
+    }
+
+    private static void unzip(File fileToBeUnzipped) {
+        File dir = new File(fileToBeUnzipped.getParent());
+
+        if(!dir.exists())
+            dir.mkdirs();
+
+        try {
+            ZipFile zipFile = new ZipFile(fileToBeUnzipped.getAbsoluteFile());
+            Enumeration<?> enu = zipFile.entries();
+            while (enu.hasMoreElements()) {
+                ZipEntry zipEntry = (ZipEntry) enu.nextElement();
+                String name = zipEntry.getName();
+
+                if (name.contains(".DS_Store") || name.contains("__MACOSX"))
+                    continue;
+
+                File file = Paths.get(fileToBeUnzipped.getParent(), name).toFile();
+                if (name.endsWith("/")) {
+                    file.mkdirs();
+                    continue;
+                }
+
+                File parent = file.getParentFile();
+                if (parent != null) {
+                    parent.mkdirs();
+                }
+
+                InputStream is = zipFile.getInputStream(zipEntry);
+                FileOutputStream fos = new FileOutputStream(file);
+                byte[] bytes = new byte[1024];
+                int length;
+                while ((length = is.read(bytes)) >= 0) {
+                    fos.write(bytes, 0, length);
+                }
+                is.close();
+                fos.close();
+            }
+            zipFile.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
