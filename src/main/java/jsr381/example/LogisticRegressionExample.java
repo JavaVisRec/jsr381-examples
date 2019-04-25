@@ -9,19 +9,17 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
+ * This example shows how to instantiate, train, evaluate and use Logistic Regression using Machine Learning Layer from VisRec API.
  *
- * @author zoran
+ * @author Zoran Sevarac
  */
 public class LogisticRegressionExample {
 
-    // set
-    // with
-    // use
-    //nothing
-
     public static void main(String[] args) throws IOException {
+
         // Get the DataSet from file location
         DataSet dataSet = DataSetExamples.getSonarDataSet();
+
         // Build logistic regression classifier
         LogisticRegression logReg  = DeepNettsLogisticRegression.builder()
                                             .inputsNum(60)

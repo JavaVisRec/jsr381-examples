@@ -10,7 +10,10 @@ import java.io.IOException;
 /**
  * This example uses a Swedish Auto Insurance Dataset to predict the total
  * payment for all auto insurance claims (in thousands of Swedish Kronor),
- * given the total number of claims
+ * given the total number of claims.
+ *
+ * This example shows how to instantiate, train, evaluate and use Linear Regression
+ * using Machine Learning Layer from VisRec API.
  *
  * @author Zoran Sevarac
  */
@@ -18,7 +21,7 @@ public class SimpleLinearRegressionExample {
 
     public static void main(String[] args) throws IOException {
         // Create a DataSet object from the CSV file
-        DataSet dataSet = DataSetExamples.getSimpleLinearRegressionDataSet();
+        DataSet dataSet = DataSetExamples.getSwedishAutoInsuranceDataSet();
 
         // Build the model
         SimpleLinearRegression linReg = DeepNettsSimpleLinearRegression.builder()

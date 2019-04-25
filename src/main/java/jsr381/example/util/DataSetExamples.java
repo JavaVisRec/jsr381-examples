@@ -32,11 +32,10 @@ public class DataSetExamples {
                 ",", 4, 3, true);
     }
 
-    public static BasicDataSet getSimpleLinearRegressionDataSet() throws IOException {
+    public static BasicDataSet getSwedishAutoInsuranceDataSet() throws IOException {
         return DataSetExamples.fromURL(new URL("https://raw.githubusercontent.com/JavaVisRec/jsr381-examples-datasets/master/SwedenAutoInsurance.csv"),
                 ",", 1, 1, false);
     }
-
 
     private static BasicDataSet fromURL(URL url, String delimiter, int inputsNum, int outputsNum, boolean hasColumnNames) throws IOException {
         BasicDataSet dataSet = new BasicDataSet(inputsNum, outputsNum);
