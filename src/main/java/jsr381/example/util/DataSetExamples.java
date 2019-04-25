@@ -5,7 +5,6 @@ import deepnetts.data.BasicDataSetItem;
 import deepnetts.util.DeepNettsException;
 
 import java.io.*;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.channels.Channels;
