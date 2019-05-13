@@ -22,9 +22,8 @@ public class MnistDemo {
         configuration.put(VisRecConstants.IMAGE_HEIGHT, "28" ); // height of example images
       //  props.setProperty(VisRecConstants.LABELS_FILE, MnistDemo.class.getResource("../../../../labels.txt").getFile());     // path to filer
         configuration.put(VisRecConstants.LABELS_FILE, "D:\\datasets\\mnist\\train\\labels.txt");     // path to file
-        // with labels
-        // (maybe
-        // this could be also specifid as visrec.labels="label1,label2,label3")
+
+       // maybe this could be also specifid as visrec.labels="label1,label2,label3")
        // props.setProperty(VisRecConstants.TRAINING_FILE, MnistDemo.class.getResource("../../../../train3.txt").getFile());     // file with list of training images (contains image paths and corresponding labels)
         configuration.put(VisRecConstants.TRAINING_FILE, "D:\\datasets\\mnist\\train\\train.txt");     // file with list of training images (contains image paths and corresponding labels)
 
@@ -38,14 +37,14 @@ public class MnistDemo {
         // or set individual properties but that would be too heavy from here
        // props.setProperty("visrec.model.saveToFile", MnistDemo.class.getResource("../../../../mnist.dnet").getFile());  // save trained model to file at the end
 
-        // training settings visrec.deepnetts.optimizationType=adagrad etc.
+        // training settings
         configuration.put(VisRecConstants.SGD_MAX_ERROR, "0.02" );
         configuration.put(VisRecConstants.SGD_LEARNING_RATE, "0.03" );
 
+        // building image classifier with specified configuration
         AbstractImageClassifier imageClassifier = DeepNettsImageClassifier.builder().build(configuration);
-        System.out.println("Done building image classifier.");
 
-        System.out.println("Testing image classifier...");
+        // Using image classifier
         Map<String, Float> results = imageClassifier.classify(new File(MnistDemo.class.getResource("../../../../00005.png").getFile()));
         System.out.println(results);
     }
