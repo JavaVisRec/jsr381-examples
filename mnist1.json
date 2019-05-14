@@ -1,0 +1,30 @@
+{
+    "layers": [{
+            "layerType": "INPUT",
+            "channels": 3,
+            "width": 28,
+            "height": 28
+        }, {
+            "filterWidth": 3,
+            "layerType": "CONVOLUTIONAL",
+            "filterHeight": 3,
+            "channels": 9,
+            "stride": 1,
+            "activation": "TANH"
+        }, {
+            "filterWidth": 2,
+            "layerType": "MAXPOOLING",
+            "filterHeight": 2,
+            "stride": 2
+        }, {
+            "layerType": "FULLY_CONNECTED",
+            "width": 30,
+            "activation": "TANH"
+        }, {
+            "layerType": "OUTPUT",
+            "width": 10,
+            "activation": "SOFTMAX"
+        }],
+    "lossFunction": "CROSS_ENTROPY",
+    "networkType": "CONVOLUTIONAL"
+}

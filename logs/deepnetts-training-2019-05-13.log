@@ -1,0 +1,38 @@
+javax.imageio.IIOException: Can't read input file!
+javax.imageio.IIOException: Can't read input file!
+javax.imageio.IIOException: Can't read input file!
+javax.imageio.IIOException: Can't read input file!
+javax.imageio.IIOException: Can't read input file!
+javax.imageio.IIOException: Can't read input file!
+javax.imageio.IIOException: Can't read input file!
+Loaded 2000 images
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:3737ms, TrainError:2.3096313, TestError:0.0, TrainErrorChange:2.3096313, Accuracy: 0.8269
+Epoch:2, Time:3426ms, TrainError:2.2968888, TestError:0.0, TrainErrorChange:2.2968888, Accuracy: 0.82930005
+Epoch:3, Time:3361ms, TrainError:2.2858036, TestError:0.0, TrainErrorChange:2.2858036, Accuracy: 0.8312
+Epoch:4, Time:3464ms, TrainError:2.2749496, TestError:0.0, TrainErrorChange:2.2749496, Accuracy: 0.8333
+Epoch:5, Time:3316ms, TrainError:2.264327, TestError:0.0, TrainErrorChange:2.264327, Accuracy: 0.8375
+Epoch:6, Time:3318ms, TrainError:2.2539263, TestError:0.0, TrainErrorChange:2.2539263, Accuracy: 0.8399
+Epoch:7, Time:3376ms, TrainError:2.243745, TestError:0.0, TrainErrorChange:2.243745, Accuracy: 0.84190005
+Epoch:8, Time:3372ms, TrainError:2.2337773, TestError:0.0, TrainErrorChange:2.2337773, Accuracy: 0.8439001
+Epoch:9, Time:3371ms, TrainError:2.2240152, TestError:0.0, TrainErrorChange:2.2240152, Accuracy: 0.8456
+Epoch:10, Time:3369ms, TrainError:2.214456, TestError:0.0, TrainErrorChange:2.214456, Accuracy: 0.8469
+Epoch:11, Time:3383ms, TrainError:2.2050896, TestError:0.0, TrainErrorChange:2.2050896, Accuracy: 0.84919995
+Epoch:12, Time:3384ms, TrainError:2.1959162, TestError:0.0, TrainErrorChange:2.1959162, Accuracy: 0.8502
+Epoch:13, Time:3613ms, TrainError:2.1869335, TestError:0.0, TrainErrorChange:2.1869335, Accuracy: 0.8511001
+Epoch:14, Time:3374ms, TrainError:2.1781273, TestError:0.0, TrainErrorChange:2.1781273, Accuracy: 0.8526001
+Epoch:15, Time:3381ms, TrainError:2.1695013, TestError:0.0, TrainErrorChange:2.1695013, Accuracy: 0.8532001
+Epoch:16, Time:3374ms, TrainError:2.1610425, TestError:0.0, TrainErrorChange:2.1610425, Accuracy: 0.8551
+Epoch:17, Time:3511ms, TrainError:2.1527505, TestError:0.0, TrainErrorChange:2.1527505, Accuracy: 0.85620004
+Epoch:18, Time:3417ms, TrainError:2.1446264, TestError:0.0, TrainErrorChange:2.1446264, Accuracy: 0.85740006
+Epoch:19, Time:3506ms, TrainError:2.1366594, TestError:0.0, TrainErrorChange:2.1366594, Accuracy: 0.8579
+Epoch:20, Time:3416ms, TrainError:2.1288471, TestError:0.0, TrainErrorChange:2.1288471, Accuracy: 0.8598
+Loaded 2000 images
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:3691ms, TrainError:2.3096313, TestError:0.0, TrainErrorChange:2.3096313, Accuracy: 0.8269
+Epoch:2, Time:3506ms, TrainError:2.2968888, TestError:0.0, TrainErrorChange:2.2968888, Accuracy: 0.82930005
+Epoch:3, Time:3555ms, TrainError:2.2858036, TestError:0.0, TrainErrorChange:2.2858036, Accuracy: 0.8312
