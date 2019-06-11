@@ -9,6 +9,7 @@ import javax.visrec.util.VisRecConstants;
 import visrec.ri.ml.classification.DeepNettsImageClassifier;
 
 /**
+ * Hand written digit recognition using MNIST data set - image classification hello world.
  *
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
@@ -16,37 +17,31 @@ public class MnistDemo {
 
     public static void main(String[] args) throws IOException {
 
+        // specify image classifier configuation as set of properties in map
         Map<String, Object> configuration = new HashMap<>();
-        // provide data set properties
+
+        // provide data set properties: image dimesions, categories/labels and list of image files
         configuration.put(VisRecConstants.IMAGE_WIDTH, "28" );  // width of example images
         configuration.put(VisRecConstants.IMAGE_HEIGHT, "28" ); // height of example images
-      //  props.setProperty(VisRecConstants.LABELS_FILE, MnistDemo.class.getResource("../../../../labels.txt").getFile());     // path to filer
-        configuration.put(VisRecConstants.LABELS_FILE, "D:\\datasets\\mnist\\train\\labels.txt");     // path to file
-        // with labels
-        // (maybe
-        // this could be also specifid as visrec.labels="label1,label2,label3")
-       // props.setProperty(VisRecConstants.TRAINING_FILE, MnistDemo.class.getResource("../../../../train3.txt").getFile());     // file with list of training images (contains image paths and corresponding labels)
-        configuration.put(VisRecConstants.TRAINING_FILE, "D:\\datasets\\mnist\\train\\train.txt");     // file with list of training images (contains image paths and corresponding labels)
+        configuration.put(VisRecConstants.LABELS_FILE, "D:\\datasets\\mnist\\train\\labels.txt");
 
-        // prop.setProperty("visrec.model", "networkArchitecture.json");    // provide as json object or json file
-                       // DeepNetts.VISREC_MODEL
-        // TODO: specify architecture in json which library to use?  or
-        // consider https://www.khronos.org/nnef    and     https://onnx.ai/
-        // https://www.khronos.org/registry/NNEF/specs/1.0/nnef-1.0.pdf
-       // props.setProperty("visrec.model.deepnetts", MnistDemo.class.getResource("../../../../mnist1.json").getFile()); // Constant should be defined in DeepNetts.VISREC_MODEL
-        configuration.put("visrec.model.deepnetts", "mnist1.json"); // Constant should be defined in DeepNetts.VISREC_MODEL
-        // or set individual properties but that would be too heavy from here
-       // props.setProperty("visrec.model.saveToFile", MnistDemo.class.getResource("../../../../mnist.dnet").getFile());  // save trained model to file at the end
+        // specify training file which contains a list of images to learn
+        configuration.put(VisRecConstants.TRAINING_FILE, "D:\\datasets\\mnist\\train\\train.txt");
 
-        // training settings visrec.deepnetts.optimizationType=adagrad etc.
-        configuration.put(VisRecConstants.SGD_MAX_ERROR, "0.02" );
-        configuration.put(VisRecConstants.SGD_LEARNING_RATE, "0.03" );
+        // set network architecture from json file
+        configuration.put("visrec.model.deepnetts", "mnist1.json");
+        configuration.put(VisRecConstants.MODEL_SAVE_TO, "mnist.dnet");  // save trained model to file at the end
 
+        // learning algorithm settings
+        configuration.put(VisRecConstants.SGD_MAX_ERROR, "1.4" );
+        configuration.put(VisRecConstants.SGD_MAX_EPOCHS , "100" );
+        configuration.put(VisRecConstants.SGD_LEARNING_RATE, "0.01" );
+
+        // building image classifier with specified configuration
         AbstractImageClassifier imageClassifier = DeepNettsImageClassifier.builder().build(configuration);
-        System.out.println("Done building image classifier.");
 
-        System.out.println("Testing image classifier...");
-        Map<String, Float> results = imageClassifier.classify(new File(MnistDemo.class.getResource("../../../../00005.png").getFile()));
+        // Using image classifier
+        Map<String, Float> results = imageClassifier.classify(new File("00060.png"));
         System.out.println(results);
     }
 }
