@@ -1,5 +1,6 @@
 package jsr381.example;
 
+import visrec.ri.ml.classification.BinaryClassifierNetwork;
 import deepnetts.data.DataSet;
 import deepnetts.data.DataSets;
 import java.io.IOException;

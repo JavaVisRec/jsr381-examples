@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.visrec.AbstractImageClassifier;
 import javax.visrec.util.VisRecConstants;
-import visrec.ri.ml.classification.DeepNettsImageClassifier;
+import visrec.ri.ml.classification.ImageClassifierNetwork;
 
 /**
  * Hand written digit recognition using MNIST data set - image classification hello world.
@@ -39,7 +39,7 @@ public class MnistDemoBak {
         configuration.put(VisRecConstants.SGD_LEARNING_RATE, "0.01" );
 
         // building image classifier with specified configuration
-        AbstractImageClassifier imageClassifier = DeepNettsImageClassifier.builder().build(configuration);
+        AbstractImageClassifier imageClassifier = ImageClassifierNetwork.builder().build(configuration);
 
         // Using image classifier
         Map<String, Float> results = imageClassifier.classify(new File("00846.png"));

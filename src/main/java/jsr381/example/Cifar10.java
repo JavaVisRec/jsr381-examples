@@ -1,6 +1,6 @@
 package jsr381.example;
 
-import visrec.ri.ml.classification.DeepNettsImageClassifier;
+import visrec.ri.ml.classification.ImageClassifierNetwork;
 
 import javax.visrec.ml.classification.Classifier;
 import java.io.File;
@@ -32,7 +32,7 @@ public class Cifar10 {
         configuration.put("visrec.sgd.learningRate", "0.01");
         configuration.put("modelFile", "cifar10.dnet");  // save trained model in file at the end (model has to provide this feature)
 
-        Classifier imageClassifier = DeepNettsImageClassifier.builder().build(configuration); // maybe also attach some listener  (or callback function) to be notified when model building is complete?
+        Classifier imageClassifier = ImageClassifierNetwork.builder().build(configuration); // maybe also attach some listener  (or callback function) to be notified when model building is complete?
         System.out.println("Done building image classifier.");
 
         // TEST VISREC IMAGE CLASSIFIER
