@@ -3,7 +3,7 @@ package jsr381.example;
 import deepnetts.data.DataSet;
 import deepnetts.data.DataSets;
 import jsr381.example.util.DataSetExamples;
-import visrec.ri.ml.classification.DeepNettsMultiClassClassifier;
+import visrec.ri.ml.classification.MultiClassClassifierNetwork;
 
 import javax.visrec.ml.classification.MultiClassClassifier;
 import java.io.IOException;
@@ -14,30 +14,22 @@ public class IrisClassificationExample {
 
         // load iris data set
         DataSet dataSet = DataSetExamples.getIrisClassificationDataSet();
-        DataSet[] trainTestSplit = DataSets.trainTestSplit(dataSet, 0.7);
+        DataSet[] trainTest = DataSets.trainTestSplit(dataSet, 0.6);
 
         // build multi class classifier using deep netts implementation of feed forward network under the hood
-        MultiClassClassifier classifier = DeepNettsMultiClassClassifier.builder()
+        MultiClassClassifier classifier = MultiClassClassifierNetwork.builder() // rename to feed forward multi class classifier
                                                         .inputsNum(4)
                                                         .hiddenLayers(16)                       // if its a common thing put it in the API
                                                         .outputsNum(3)                          //I think its ok to use implementation specific type since this is specific impl
-                                                        .maxEpochs(10000)
-                                                        .maxError(0.05f)
+                                                        .maxEpochs(2000)
+                                                        .maxError(0.03f)
                                                         .learningRate(0.01f)
-                                                        .trainingSet(trainTestSplit[0])
+                                                        .trainingSet(trainTest[0])
                                                         .build();
 
         // use classifier to predict class
-        Map<String, Float> results = classifier.classify(args);
+        Map<String, Float> results = classifier.classify(new float[] {0.1f, 0.2f, 0.3f, 0.4f});
         System.out.println(results);
-        // if training set is specified perform training when build is invoked, otherwice invoke train separetly from building, see bellow
-        // if test set is specified also perform performance evalaution
-        // performe entire standard ml workflow with meaningfull error messages if something is not right
-        // we are not assuming that user know data prep, ml and stats
-        // croccvalidation?
-
-      //  classifier.train(trainAndTestSet[0]);
-  //      classifier.test(trainAndTestSet[1]);   // do this internally after training, log results, and return Map with performance measures?
 
     }
 }

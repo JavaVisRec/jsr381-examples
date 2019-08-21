@@ -91,6 +91,12 @@ public class DataSetExamples {
         return folder;
     }
 
+    /**
+     * Download and unzip MNIST data set from https://github.com/JavaVisRec/jsr381-examples-datasets/raw/master/mnist_training_data_png.zip
+     *
+     * @return path to downloaded data set
+     * @throws IOException
+     */
     public static File getMnistTrainingDataSet() throws IOException {
         File folder = Paths.get(System.getProperty("java.io.tmpdir"), "visrec-datasets", "mnist", "training").toFile();
 

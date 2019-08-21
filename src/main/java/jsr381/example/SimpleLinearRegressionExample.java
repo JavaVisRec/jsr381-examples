@@ -24,7 +24,7 @@ public class SimpleLinearRegressionExample {
         DataSet dataSet = DataSetExamples.getSwedishAutoInsuranceDataSet();
 
         // Build the model
-        SimpleLinearRegression linReg = DeepNettsSimpleLinearRegression.builder()
+        SimpleLinearRegression linReg = DeepNettsSimpleLinearRegression.builder() // rename to linear regression network
                 .trainingSet(dataSet)
                 .learningRate(0.1f)
                 .maxError(0.01f)
