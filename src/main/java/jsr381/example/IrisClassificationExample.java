@@ -1,19 +1,20 @@
 package jsr381.example;
 
-import deepnetts.data.DataSet;
 import deepnetts.data.DataSets;
+import deepnetts.data.DeepNettsDataSetItem;
 import jsr381.example.util.DataSetExamples;
 import visrec.ri.ml.classification.MultiClassClassifierNetwork;
 
 import javax.visrec.ml.classification.MultiClassClassifier;
 import java.io.IOException;
 import java.util.Map;
+import javax.visrec.ml.data.DataSet;
 
 public class IrisClassificationExample {
     public static void main(String[] args) throws IOException {
 
         // load iris data set
-        DataSet dataSet = DataSetExamples.getIrisClassificationDataSet();
+        DataSet<DeepNettsDataSetItem> dataSet = DataSetExamples.getIrisClassificationDataSet();
         DataSet[] trainTest = DataSets.trainTestSplit(dataSet, 0.6);
 
         // build multi class classifier using deep netts implementation of feed forward network under the hood

@@ -1,7 +1,6 @@
 package jsr381.example.util;
 
-import deepnetts.data.BasicDataSet;
-import deepnetts.data.BasicDataSetItem;
+import deepnetts.data.DeepNettsBasicDataSet;
 import deepnetts.util.DeepNettsException;
 
 import java.io.*;
@@ -15,6 +14,7 @@ import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+import javax.visrec.ml.data.BasicDataSet;
 
 /**
  * @author Kevin Berendsen
@@ -37,7 +37,7 @@ public class DataSetExamples {
     }
 
     private static BasicDataSet fromURL(URL url, String delimiter, int inputsNum, int outputsNum, boolean hasColumnNames) throws IOException {
-        BasicDataSet dataSet = new BasicDataSet(inputsNum, outputsNum);
+        DeepNettsBasicDataSet dataSet = new DeepNettsBasicDataSet(inputsNum, outputsNum);
 
         URLConnection conn = url.openConnection();
         String[] content;
@@ -111,7 +111,7 @@ public class DataSetExamples {
         return folder;
     }
 
-    private static BasicDataSetItem toBasicDataSetItem(String line, String delimiter, int inputsNum, int outputsNum) {
+    private static DeepNettsBasicDataSet.Item toBasicDataSetItem(String line, String delimiter, int inputsNum, int outputsNum) {
         String[] values = line.split(delimiter);
         if (values.length != (inputsNum + outputsNum)) {
             throw new DeepNettsException("Wrong number of values found " + values.length + " expected " + (inputsNum + outputsNum));
@@ -132,7 +132,7 @@ public class DataSetExamples {
             throw new DeepNettsException("Error parsing csv, number expected: " + nex.getMessage(), nex);
         }
 
-        return new BasicDataSetItem(in, out);
+        return new DeepNettsBasicDataSet.Item(in, out);
     }
 
     private static void downloadZip(String httpsURL, File basePath)  {

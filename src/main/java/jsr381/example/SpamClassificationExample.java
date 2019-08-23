@@ -1,11 +1,11 @@
 package jsr381.example;
 
 import visrec.ri.ml.classification.BinaryClassifierNetwork;
-import deepnetts.data.DataSet;
 import deepnetts.data.DataSets;
 import java.io.IOException;
 import java.util.Map;
 import javax.visrec.ml.classification.Classifier;
+import javax.visrec.ml.data.DataSet;
 
 /**
  * Minimum example for creating binary classifier from CSV file.
@@ -19,6 +19,7 @@ public class SpamClassificationExample {
         
         // create data set from specified file 
         DataSet dataSet = DataSets.readCsv("spam.csv", 57, 1, true);
+        DataSets.normalizeMax(dataSet);
         
         // Build binary classifer based on neural network
         Classifier<float[], Boolean> spamClassifier = BinaryClassifierNetwork.builder()            

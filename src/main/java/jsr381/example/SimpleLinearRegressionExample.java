@@ -1,11 +1,11 @@
 package jsr381.example;
 
-import deepnetts.data.DataSet;
 import jsr381.example.util.DataSetExamples;
-import visrec.ri.regression.DeepNettsSimpleLinearRegression;
+import visrec.ri.ml.regression.DeepNettsSimpleLinearRegression;
 
-import javax.visrec.regression.SimpleLinearRegression;
+import javax.visrec.ml.regression.SimpleLinearRegression;
 import java.io.IOException;
+import javax.visrec.ml.data.DataSet;
 
 /**
  * This example uses a Swedish Auto Insurance Dataset to predict the total

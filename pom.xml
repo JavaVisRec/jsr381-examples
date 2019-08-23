@@ -25,6 +25,12 @@
             <version>3.5.2-SNAPSHOT</version>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>deepnetts</groupId>
+            <artifactId>deepnetts-core</artifactId>
+            <version>1.1-SNAPSHOT</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 
     <repositories>

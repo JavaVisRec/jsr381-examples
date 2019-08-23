@@ -1,12 +1,12 @@
 package jsr381.example;
 
-import deepnetts.data.DataSet;
 import jsr381.example.util.DataSetExamples;
-import visrec.ri.regression.DeepNettsLogisticRegression;
+import visrec.ri.ml.regression.DeepNettsLogisticRegression;
 
-import javax.visrec.regression.LogisticRegression;
+import javax.visrec.ml.regression.LogisticRegression;
 import java.io.IOException;
 import java.util.Map;
+import javax.visrec.ml.data.DataSet;
 
 /**
  * This example shows how to instantiate, train, evaluate and use Logistic Regression using Machine Learning Layer from VisRec API.
