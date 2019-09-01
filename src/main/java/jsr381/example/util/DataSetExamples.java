@@ -1,6 +1,7 @@
 package jsr381.example.util;
 
 import deepnetts.data.DeepNettsBasicDataSet;
+import deepnetts.data.ImageSet;
 import deepnetts.util.DeepNettsException;
 
 import java.io.*;
@@ -15,6 +16,7 @@ import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import javax.visrec.ml.data.BasicDataSet;
+import javax.visrec.ml.data.DataSet;
 
 /**
  * @author Kevin Berendsen
@@ -26,7 +28,7 @@ public class DataSetExamples {
                 ",", 60, 1, false);
     }
 
-    public static BasicDataSet getIrisClassificationDataSet() throws IOException {
+    public static DataSet getIrisClassificationDataSet() throws IOException {
         return DataSetExamples.fromURL(new URL("https://raw.githubusercontent.com/JavaVisRec/jsr381-examples-datasets/master/iris_data_normalised.txt"),
                 ",", 4, 3, true);
     }
@@ -97,7 +99,7 @@ public class DataSetExamples {
      * @return path to downloaded data set
      * @throws IOException
      */
-    public static File getMnistTrainingDataSet() throws IOException {
+    public static ImageSet getMnistTrainingSet() throws IOException { // print out message since it can take a while
         File folder = Paths.get(System.getProperty("java.io.tmpdir"), "visrec-datasets", "mnist", "training").toFile();
 
         if (!folder.exists()) {
@@ -105,10 +107,20 @@ public class DataSetExamples {
                 throw new IOException("Couldn't create temporary directories to download the Mnist training dataset.");
             }
         }
-
+        System.err.println("Download begins");// can take long time should give a note
         downloadZip("https://github.com/JavaVisRec/jsr381-examples-datasets/raw/master/mnist_training_data_png.zip", folder);
 
-        return folder;
+        String labelsFile = Paths.get(System.getProperty("java.io.tmpdir"), "visrec-datasets", "mnist", "train", "labels.txt").toString();
+                //"D:\\datasets\\mnist\\train\\labels.txt";
+        String trainingFile = Paths.get(System.getProperty("java.io.tmpdir"), "visrec-datasets", "mnist", "train", "train.txt").toString();
+// "D:\\datasets\\mnist\\train\\train.txt"; // 1000 cifara - probaj sa 10 00        
+        
+        ImageSet imageSet = new ImageSet(28, 28);
+        imageSet.setInvertImages(true);
+        imageSet.loadLabels(new File(labelsFile));
+        imageSet.loadImages(new File(trainingFile), 1000);
+        
+        return imageSet;
     }
 
     private static DeepNettsBasicDataSet.Item toBasicDataSetItem(String line, String delimiter, int inputsNum, int outputsNum) {
