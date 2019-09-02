@@ -1,15 +1,11 @@
 package jsr381.example;
 
-import deepnetts.data.DataSets;
-import deepnetts.data.ImageSet;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.visrec.AbstractImageClassifier;
-import javax.visrec.ml.data.DataSet;
 import javax.visrec.util.VisRecConstants;
-import jsr381.example.util.DataSetExamples;
 import visrec.ri.ml.classification.ImageClassifierNetwork;
 
 /**
