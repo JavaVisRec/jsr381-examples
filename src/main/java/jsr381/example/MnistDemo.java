@@ -1,11 +1,14 @@
 package jsr381.example;
 
+import deepnetts.data.ExampleImage;
+import deepnetts.data.ImageSet;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.visrec.AbstractImageClassifier;
 import javax.visrec.util.VisRecConstants;
+import jsr381.example.util.DataSetExamples;
 import visrec.ri.ml.classification.ImageClassifierNetwork;
 
 /**
@@ -17,6 +20,8 @@ public class MnistDemo {
 
     public static void main(String[] args) throws IOException {
 
+        ImageSet imageSet = DataSetExamples.getMnistTrainingSet();
+        
         // specify image classifier configuation as set of properties in a 
         Map<String, Object> conf = new HashMap<>();
 
