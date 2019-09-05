@@ -4,6 +4,7 @@ import visrec.ri.ml.classification.BinaryClassifierNetwork;
 import deepnetts.data.DataSets;
 import java.io.IOException;
 import java.util.Map;
+import javax.visrec.ml.classification.BinaryClassifier;
 import javax.visrec.ml.classification.Classifier;
 import javax.visrec.ml.data.DataSet;
 
@@ -22,7 +23,7 @@ public class SpamClassificationExample {
         DataSets.normalizeMax(dataSet);
         
         // Build binary classifer based on neural network
-        Classifier<float[], Boolean> spamClassifier = BinaryClassifierNetwork.builder()            
+        BinaryClassifier<float[]> spamClassifier = BinaryClassifierNetwork.builder()            
                                                         .inputsNum(57)
                                                         .hiddenLayers(5)
                                                         .maxError(0.03)
@@ -33,8 +34,8 @@ public class SpamClassificationExample {
 
         // using trained classifier
         float[] testEmail = getExampleEmailToClassify();
-        Map<Boolean, Float> result = spamClassifier.classify(testEmail);
-        System.out.println(result.get(Boolean.TRUE));        
+        Float result = spamClassifier.classify(testEmail);
+        System.out.println(result);        
     }
 
     static float[] getExampleEmailToClassify() {
