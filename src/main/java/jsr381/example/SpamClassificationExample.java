@@ -3,9 +3,7 @@ package jsr381.example;
 import visrec.ri.ml.classification.BinaryClassifierNetwork;
 import deepnetts.data.DataSets;
 import java.io.IOException;
-import java.util.Map;
 import javax.visrec.ml.classification.BinaryClassifier;
-import javax.visrec.ml.classification.Classifier;
 import javax.visrec.ml.data.DataSet;
 
 /**

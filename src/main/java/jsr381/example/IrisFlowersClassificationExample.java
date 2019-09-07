@@ -1,16 +1,16 @@
 package jsr381.example;
 
 import deepnetts.data.DataSets;
+import deepnetts.eval.Evaluators;
 import jsr381.example.util.DataSetExamples;
 import visrec.ri.ml.classification.MultiClassClassifierNetwork;
 
-import javax.visrec.ml.classification.AbstractMultiClassClassifier;
 import java.io.IOException;
 import java.util.Map;
 import javax.visrec.ml.classification.MultiClassClassifier;
 import javax.visrec.ml.data.DataSet;
 
-public class IrisClassificationExample {
+public class IrisFlowersClassificationExample {
     public static void main(String[] args) throws IOException {
 
         // load iris data set
@@ -18,10 +18,10 @@ public class IrisClassificationExample {
         DataSet[] trainTest = DataSets.trainTestSplit(dataSet, 0.6);
 
         // build multi class classifier using deep netts implementation of feed forward network under the hood
-        MultiClassClassifier<float[], String> classifier = MultiClassClassifierNetwork.builder() // rename to feed forward multi class classifier
+        MultiClassClassifier<float[], String> irisClassifier = MultiClassClassifierNetwork.builder() 
                                                                 .inputsNum(4)
-                                                                .hiddenLayers(16)                       // if its a common thing put it in the API
-                                                                .outputsNum(3)                          //I think its ok to use implementation specific type since this is specific impl
+                                                                .hiddenLayers(16)                       
+                                                                .outputsNum(3)                          
                                                                 .maxEpochs(2000)
                                                                 .maxError(0.03f)
                                                                 .learningRate(0.01f)
@@ -29,11 +29,9 @@ public class IrisClassificationExample {
                                                                 .build();
 
         // use classifier to predict class
-        Map<String, Float> results = classifier.classify(new float[] {0.1f, 0.2f, 0.3f, 0.4f});
+        Map<String, Float> results = irisClassifier.classify(new float[] {0.1f, 0.2f, 0.3f, 0.4f});
         System.out.println(results);
 
-        // da matricu konfuzije i metrike za evaluaciju
-        //Evaluators.evaluateClassifier(neuralNet, dataSet);
-        // da izvucem evaluatore u visrec
+        //Evaluators.evaluateClassifier(classifier.geModel(), dataSet);
     }
 }
