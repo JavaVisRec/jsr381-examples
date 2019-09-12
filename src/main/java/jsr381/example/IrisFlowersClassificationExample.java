@@ -28,10 +28,8 @@ public class IrisFlowersClassificationExample {
                                                                 .trainingSet(trainTest[0])
                                                                 .build();
 
-        // use classifier to predict class
+        // use classifier to predict class - returns a map with probabilities associated to possible classes
         Map<String, Float> results = irisClassifier.classify(new float[] {0.1f, 0.2f, 0.3f, 0.4f});
         System.out.println(results);
-
-        //Evaluators.evaluateClassifier(classifier.geModel(), dataSet);
     }
 }
