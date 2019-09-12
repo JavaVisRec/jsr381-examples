@@ -111,9 +111,7 @@ public class DataSetExamples {
         downloadZip("https://github.com/JavaVisRec/jsr381-examples-datasets/raw/master/mnist_training_data_png.zip", folder);
 
         String labelsFile = Paths.get(System.getProperty("java.io.tmpdir"), "visrec-datasets", "mnist", "train", "labels.txt").toString();
-                //"D:\\datasets\\mnist\\train\\labels.txt";
         String trainingFile = Paths.get(System.getProperty("java.io.tmpdir"), "visrec-datasets", "mnist", "train", "train.txt").toString();
-// "D:\\datasets\\mnist\\train\\train.txt"; // 1000 cifara - probaj sa 10 00        
         
         ImageSet imageSet = new ImageSet(28, 28);
         imageSet.setInvertImages(true);
