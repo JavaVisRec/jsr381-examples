@@ -1,7 +1,6 @@
 package jsr381.example.util;
 
 import deepnetts.data.DeepNettsBasicDataSet;
-import deepnetts.data.ImageSet;
 import deepnetts.util.DeepNettsException;
 
 import java.io.*;
@@ -79,7 +78,23 @@ public class DataSetExamples {
         return dataSet;
     }
 
-    public static File getMnistTestingDataSet() throws IOException {
+    private static File downloadSingleFile(URL url) throws IOException {
+        URLConnection conn = url.openConnection();
+        String[] content;
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
+            content = reader.lines().toArray(String[]::new);
+        }
+
+        File architectureFile = Paths.get(System.getProperty("java.io.tmpdir"), "visrec-datasets", "mnist", "architecture.json").toFile();
+        try (FileOutputStream outputStream = new FileOutputStream(architectureFile)) {
+            for (String line : content) {
+                outputStream.write((line + System.lineSeparator()).getBytes());
+            }
+        }
+        return architectureFile;
+    }
+
+    public static File getMnistTestingSet() throws IOException {
         File folder = Paths.get(System.getProperty("java.io.tmpdir"), "visrec-datasets", "mnist", "testing").toFile();
 
         if (!folder.exists()) {
@@ -94,34 +109,86 @@ public class DataSetExamples {
     }
 
     /**
-     * Download and unzip MNIST data set from https://github.com/JavaVisRec/jsr381-examples-datasets/raw/master/mnist_training_data_png.zip
+     * Download and unzip MNIST dataset
      *
      * @return path to downloaded data set
      * @throws IOException
      */
-    public static ImageSet getMnistTrainingSet() throws IOException { // print out message since it can take a while
-        File folder = Paths.get(System.getProperty("java.io.tmpdir"), "visrec-datasets", "mnist", "training").toFile();
-
-        if (!folder.exists()) {
-            if (!folder.mkdirs()) {
+    public static MnistDataSet getMnistDataSet() throws IOException { // print out message since it can take a while
+        File mnistFolder = Paths.get(System.getProperty("java.io.tmpdir"), "visrec-datasets", "mnist").toFile();
+        System.out.println(String.format("Downloading MNIST training dataset to: %s - this may take a while!", mnistFolder.getAbsolutePath()));
+        if (!mnistFolder.exists()) {
+            if (!mnistFolder.mkdirs()) {
                 throw new IOException("Couldn't create temporary directories to download the Mnist training dataset.");
             }
         }
-        System.err.println("Download begins");// can take long time should give a note
-        downloadZip("https://github.com/JavaVisRec/jsr381-examples-datasets/raw/master/mnist_training_data_png.zip", folder);
+        downloadZip("https://github.com/JavaVisRec/jsr381-examples-datasets/raw/master/mnist_training_data_png.zip", mnistFolder);
+        File trainingIndexFile = new File(Paths.get(mnistFolder.getAbsolutePath(), "training").toFile(), "train.txt");
+        if (!trainingIndexFile.exists())
+            throw new FileNotFoundException(trainingIndexFile + " not properly downloaded");
 
-        String labelsFile = Paths.get(System.getProperty("java.io.tmpdir"), "visrec-datasets", "mnist", "train", "labels.txt").toString();
-                //"D:\\datasets\\mnist\\train\\labels.txt";
-        String trainingFile = Paths.get(System.getProperty("java.io.tmpdir"), "visrec-datasets", "mnist", "train", "train.txt").toString();
-// "D:\\datasets\\mnist\\train\\train.txt"; // 1000 cifara - probaj sa 10 00        
-        
-        ImageSet imageSet = new ImageSet(28, 28);
-        imageSet.setInvertImages(true);
-        imageSet.loadLabels(new File(labelsFile));
-        imageSet.loadImages(new File(trainingFile), 1000);
-        
-        return imageSet;
+        File trainingLabelsFile = new File(Paths.get(mnistFolder.getAbsolutePath(), "training").toFile(), "labels.txt");
+        if (!trainingLabelsFile.exists())
+            throw new FileNotFoundException(trainingLabelsFile + " not properly downloaded");
+
+        File architectureFile = downloadSingleFile(new URL("https://github.com/JavaVisRec/jsr381-examples-datasets/blob/master/mnist.json"));
+        if (!architectureFile.exists())
+            throw new FileNotFoundException(architectureFile + " not properly downloaded");
+
+        return new MnistDataSet()
+                .setNetworkArchitectureFile(architectureFile)
+                .setLabelsFile(trainingLabelsFile)
+                .setTrainingFile(trainingIndexFile);
     }
+
+    public static void main(String[] args) throws IOException {
+        System.out.println(getMnistDataSet());
+    }
+
+    public static class MnistDataSet {
+        private File labelsFile;
+        private File trainingFile;
+        private File networkArchitectureFile;
+
+        private MnistDataSet() {}
+
+        private MnistDataSet setLabelsFile(File labelsFile) {
+            this.labelsFile = labelsFile;
+            return this;
+        }
+
+        private MnistDataSet setTrainingFile(File trainingFile) {
+            this.trainingFile = trainingFile;
+            return this;
+        }
+
+        private MnistDataSet setNetworkArchitectureFile(File networkArchitectureFile) {
+            this.networkArchitectureFile = networkArchitectureFile;
+            return this;
+        }
+
+        public File getLabelsFile() {
+            return labelsFile;
+        }
+
+        public File getTrainingFile() {
+            return trainingFile;
+        }
+
+        public File getNetworkArchitectureFile() {
+            return networkArchitectureFile;
+        }
+
+        @Override
+        public String toString() {
+            return "MnistDataSet{" +
+                    "labelsFile=" + labelsFile +
+                    ", trainingFile=" + trainingFile +
+                    ", networkArchitectureFile=" + networkArchitectureFile +
+                    '}';
+        }
+    }
+
 
     private static DeepNettsBasicDataSet.Item toBasicDataSetItem(String line, String delimiter, int inputsNum, int outputsNum) {
         String[] values = line.split(delimiter);

@@ -19,23 +19,26 @@ import visrec.ri.ml.classification.ImageClassifierNetwork;
 public class MnistDemo {
 
     public static void main(String[] args) throws IOException {
+        // Download the dataset and calculate how much time it took
+        long start = System.currentTimeMillis();
+        DataSetExamples.MnistDataSet dataSet = DataSetExamples.getMnistDataSet();
+        System.out.println(String.format("Took %d milliseconds to download the MNIST dataset", System.currentTimeMillis() - start));
 
-        ImageSet imageSet = DataSetExamples.getMnistTrainingSet();
-        
-        // specify image classifier configuation as set of properties in a 
+        // Configuration to train the model
         Map<String, Object> conf = new HashMap<>();
 
         // provide data set properties: image dimesions, categories/labels and list of image files
-        conf.put(VisRecConstants.IMAGE_WIDTH, "28" );  // width of example images
+        conf.put(VisRecConstants.IMAGE_WIDTH, "28");  // width of example images
         conf.put(VisRecConstants.IMAGE_HEIGHT, "28" ); // height of example images
-        conf.put(VisRecConstants.LABELS_FILE, "D:\\datasets\\mnist\\train\\labels.txt"); // put java.io.tmp nad zip into data set
+        conf.put(VisRecConstants.LABELS_FILE, dataSet.getLabelsFile().getAbsolutePath());
 
         // specify training file which contains a list of images to learn
-        conf.put(VisRecConstants.TRAINING_FILE, "D:\\datasets\\mnist\\train\\train.txt");
+        conf.put(VisRecConstants.TRAINING_FILE, dataSet.getTrainingFile().getAbsolutePath());
 
         // specify network architecture in json file
-        conf.put("visrec.model.deepnetts", "mnist1.json"); // put path to json file or JSON object define network architecture in json file
-        conf.put(VisRecConstants.MODEL_SAVE_TO, "mnist.dnet");  // save trained model to file at the end
+        conf.put("visrec.model.deepnetts", dataSet.getNetworkArchitectureFile().getAbsolutePath());
+        // save trained model to file at the end
+        conf.put(VisRecConstants.MODEL_SAVE_TO, "mnist.dnet");
 
         // learning algorithm settings
         conf.put(VisRecConstants.SGD_MAX_ERROR, "1.4" );
