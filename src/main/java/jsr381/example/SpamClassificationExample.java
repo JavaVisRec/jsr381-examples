@@ -3,6 +3,7 @@ package jsr381.example;
 import visrec.ri.ml.classification.BinaryClassifierNetwork;
 import deepnetts.data.DataSets;
 import java.io.IOException;
+import java.net.URL;
 import javax.visrec.ml.classification.BinaryClassifier;
 import javax.visrec.ml.data.DataSet;
 
@@ -16,8 +17,12 @@ public class SpamClassificationExample {
 
     public static void main(String[] args) throws IOException {
         
-        // create data set from specified file 
-        DataSet dataSet = DataSets.readCsv("spam.csv", 57, 1, true);
+        // create data set from specified file
+        URL spamCsvResource = SpamClassificationExample.class.getClassLoader().getResource("spam.csv");
+        if (spamCsvResource == null) {
+            throw new IOException("spam.csv not found");
+        }
+        DataSet dataSet = DataSets.readCsv(spamCsvResource.getFile(), 57, 1, true);
         DataSets.normalizeMax(dataSet);
         
         // Build binary classifer based on neural network
