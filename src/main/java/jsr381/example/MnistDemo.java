@@ -36,20 +36,19 @@ public class MnistDemo {
         conf.put(VisRecConstants.TRAINING_FILE, dataSet.getTrainingFile().getAbsolutePath());
 
         // specify network architecture in json file
-        conf.put("visrec.model.deepnetts", dataSet.getNetworkArchitectureFile().getAbsolutePath());
+        conf.put("visrec.model.deepnetts",  "mnist_arch.json"); // dataSet.getNetworkArchitectureFile().getAbsolutePath()
         // save trained model to file at the end
         conf.put(VisRecConstants.MODEL_SAVE_TO, "mnist.dnet");
 
         // learning algorithm settings
-        conf.put(VisRecConstants.SGD_MAX_ERROR, "1.4" );
+        conf.put(VisRecConstants.SGD_MAX_ERROR, "0.03" );
         conf.put(VisRecConstants.SGD_MAX_EPOCHS , "100" );
         conf.put(VisRecConstants.SGD_LEARNING_RATE, "0.01" );
         
-
         // building image classifier with specified configuration
         AbstractImageClassifier imageClassifier = ImageClassifierNetwork.builder().build(conf);
 
-        // Evalate image classifier
+        // Todo: Evalate image classifier
         
         // Using image classifier
         Map<String, Float> results = imageClassifier.classify(new File("00060.png"));

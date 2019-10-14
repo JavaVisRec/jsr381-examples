@@ -116,12 +116,13 @@ public class DataSetExamples {
      */
     public static MnistDataSet getMnistDataSet() throws IOException { // print out message since it can take a while
         File mnistFolder = Paths.get(System.getProperty("java.io.tmpdir"), "visrec-datasets", "mnist").toFile();
-        System.out.println(String.format("Downloading MNIST training dataset to: %s - this may take a while!", mnistFolder.getAbsolutePath()));
+        System.out.println(String.format("Downloading and unpacking MNIST training set to: %s - this may take a while!", mnistFolder.getAbsolutePath()));
         if (!mnistFolder.exists()) {
             if (!mnistFolder.mkdirs()) {
                 throw new IOException("Couldn't create temporary directories to download the Mnist training dataset.");
             }
         }
+        // check if mnist allready exists!!!
         downloadZip("https://github.com/JavaVisRec/jsr381-examples-datasets/raw/master/mnist_training_data_png.zip", mnistFolder);
         File trainingIndexFile = new File(Paths.get(mnistFolder.getAbsolutePath(), "training").toFile(), "train.txt");
         if (!trainingIndexFile.exists())
