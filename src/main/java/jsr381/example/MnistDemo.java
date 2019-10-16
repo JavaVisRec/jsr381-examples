@@ -47,11 +47,10 @@ public class MnistDemo {
         
         // building image classifier with specified configuration
         AbstractImageClassifier imageClassifier = ImageClassifierNetwork.builder().build(conf);
-
-        // Todo: Evalate image classifier
-        
+       
         // Using image classifier
         Map<String, Float> results = imageClassifier.classify(new File("00060.png"));
+        // print out probabilities for all possible image classes
         System.out.println(results);
     }
 }
