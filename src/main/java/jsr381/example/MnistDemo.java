@@ -1,7 +1,5 @@
 package jsr381.example;
 
-import deepnetts.data.ExampleImage;
-import deepnetts.data.ImageSet;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
