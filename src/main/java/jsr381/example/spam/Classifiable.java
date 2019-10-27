@@ -1,4 +1,4 @@
-package jsr381.example;
+package jsr381.example.spam;
 
 /**
  * This interface should be implemented for classes whose objects we want to be able to classify.Instances of classes that implement this interface can be classified, and used as examples

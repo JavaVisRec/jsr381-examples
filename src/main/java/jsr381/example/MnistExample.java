@@ -2,6 +2,8 @@ package jsr381.example;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import javax.visrec.AbstractImageClassifier;
@@ -10,13 +12,13 @@ import jsr381.example.util.DataSetExamples;
 import visrec.ri.ml.classification.ImageClassifierNetwork;
 
 /**
- * Hand written digit recognition using MNIST data set - image classification hello world.
+ * Handwritten digit recognition using MNIST data set - image classification hello world.
  *
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
-public class MnistDemo {
+public class MnistExample {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, URISyntaxException {
         // Download the dataset and calculate how much time it took
         long start = System.currentTimeMillis();
         DataSetExamples.MnistDataSet dataSet = DataSetExamples.getMnistDataSet();
@@ -34,7 +36,7 @@ public class MnistDemo {
         conf.put(VisRecConstants.TRAINING_FILE, dataSet.getTrainingFile().getAbsolutePath());
 
         // specify network architecture in json file
-        conf.put("visrec.model.deepnetts",  "mnist_arch.json"); // dataSet.getNetworkArchitectureFile().getAbsolutePath()
+        conf.put("visrec.model.deepnetts",  Paths.get(MnistExample.class.getClassLoader().getResource("mnist_arch.json").toURI()).toFile());
         // save trained model to file at the end
         conf.put(VisRecConstants.MODEL_SAVE_TO, "mnist.dnet");
 

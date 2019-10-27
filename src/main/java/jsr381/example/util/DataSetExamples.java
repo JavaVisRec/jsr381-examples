@@ -120,10 +120,12 @@ public class DataSetExamples {
         if (!mnistFolder.exists()) {
             if (!mnistFolder.mkdirs()) {
                 throw new IOException("Couldn't create temporary directories to download the Mnist training dataset.");
-            }
+            }            
         }
-        // check if mnist allready exists!!!
-        downloadZip("https://github.com/JavaVisRec/jsr381-examples-datasets/raw/master/mnist_training_data_png.zip", mnistFolder);
+        
+        // check if mnist zip  allready exists  - don't download it again if its there
+        downloadZip("https://github.com/JavaVisRec/jsr381-examples-datasets/raw/master/mnist_training_data_png.zip", mnistFolder);                   
+        
         File trainingIndexFile = new File(Paths.get(mnistFolder.getAbsolutePath(), "training").toFile(), "train.txt");
         if (!trainingIndexFile.exists())
             throw new FileNotFoundException(trainingIndexFile + " not properly downloaded");
@@ -137,7 +139,7 @@ public class DataSetExamples {
             throw new FileNotFoundException(architectureFile + " not properly downloaded");
 
         return new MnistDataSet()
-                .setNetworkArchitectureFile(architectureFile)
+                .setNetworkArchitectureFile(architectureFile) // we dont need architecture in data set
                 .setLabelsFile(trainingLabelsFile)
                 .setTrainingFile(trainingIndexFile);
     }
@@ -215,6 +217,12 @@ public class DataSetExamples {
         return new DeepNettsBasicDataSet.Item(in, out);
     }
 
+    /**
+     * Downloads and unzips file from specified url.
+     * 
+     * @param httpsURL
+     * @param basePath 
+     */
     private static void downloadZip(String httpsURL, File basePath)  {
         URL url = null;
         try {
