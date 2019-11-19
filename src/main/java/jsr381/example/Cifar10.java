@@ -1,22 +1,23 @@
 package jsr381.example;
 
-import java.awt.image.BufferedImage;
 import visrec.ri.ml.classification.ImageClassifierNetwork;
 
-import javax.visrec.ml.classification.Classifier;
+import javax.imageio.ImageIO;
+import javax.visrec.ml.ClassificationException;
+import javax.visrec.ml.ClassifierCreationException;
+import javax.visrec.ml.classification.ImageClassifier;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import javax.imageio.ImageIO;
-import javax.visrec.ml.classification.ImageClassifier;
 
 /**
  * @author Zoran Sevarac
  */
 public class Cifar10 {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ClassificationException, ClassifierCreationException {
 
 //        ImageClassifier imageClassifier = ImageClassifier.newBuilder()
 //                .imageWidth(32)
@@ -37,7 +38,7 @@ public class Cifar10 {
         conf.put("visrec.sgd.learningRate", "0.01");
         conf.put("modelFile", "cifar10.dnet");  // save trained model in file at the end (model has to provide this feature)
 
-        ImageClassifier<BufferedImage> imageClassifier = ImageClassifierNetwork.builder().build(conf); // maybe also attach some listener  (or callback function) to be notified when model building is complete?
+        ImageClassifier imageClassifier = ImageClassifierNetwork.builder().build(conf); // maybe also attach some listener  (or callback function) to be notified when model building is complete?
         System.out.println("Done building image classifier.");
         System.out.println("Classifiying image ...");
 

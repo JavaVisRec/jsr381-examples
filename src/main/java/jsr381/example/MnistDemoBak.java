@@ -1,13 +1,15 @@
 package jsr381.example;
 
-import jsr381.example.*;
+import visrec.ri.ml.classification.ImageClassifierNetwork;
+
+import javax.visrec.AbstractImageClassifier;
+import javax.visrec.ml.ClassificationException;
+import javax.visrec.ml.ClassifierCreationException;
+import javax.visrec.util.VisRecConstants;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import javax.visrec.AbstractImageClassifier;
-import javax.visrec.util.VisRecConstants;
-import visrec.ri.ml.classification.ImageClassifierNetwork;
 
 /**
  * Hand written digit recognition using MNIST data set - image classification hello world.
@@ -16,7 +18,7 @@ import visrec.ri.ml.classification.ImageClassifierNetwork;
  */
 public class MnistDemoBak {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ClassificationException, ClassifierCreationException {
 
         Map<String, Object> configuration = new HashMap<>();
         // provide data set properties: image dimesions, categories/labels and list of image files
