@@ -12,11 +12,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Hand written digit recognition using MNIST data set - image classification hello world.
+ * Handwritten digit recognition using MNIST data set - image classification hello world.
  *
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
-public class MnistDemo {
+public class MnistExample {
 
     public static void main(String[] args) throws IOException, ClassificationException, ClassifierCreationException {
         // Download the dataset and calculate how much time it took
@@ -36,7 +36,12 @@ public class MnistDemo {
         conf.put("trainingsFile", dataSet.getTrainingFile().getAbsolutePath());
 
         // specify network architecture in json file
-        conf.put("networkArchitecture", dataSet.getNetworkArchitectureFile().getAbsolutePath());
+        URL archUrl = MnistExample.class.getClassLoader().getResource("mnist_arch.json");
+        if (archUrl == null) {
+            throw new IOException("Network architecture could not be found in resources");
+        }
+        conf.put("networkArchitecture", archUrl.getFile());
+
         // save trained model to file at the end
         conf.put("modelFile", "mnist.dnet");
 
@@ -48,8 +53,6 @@ public class MnistDemo {
         // building image classifier with specified configuration
         ImageClassifier imageClassifier = ImageClassifier.builder()
                 .build(conf);
-
-        // Evalate image classifier
         
         // Using image classifier
         // Get the image file from resources

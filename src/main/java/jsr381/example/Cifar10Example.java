@@ -13,9 +13,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Cifar10 is a commonly used data set with 60000 of small 32x32 pixel images, used for image classification benchmarks.
+ * 
  * @author Zoran Sevarac
  */
-public class Cifar10 {
+public class Cifar10Example {
 
     public static void main(String[] args) throws IOException, ClassificationException, ClassifierCreationException {
 

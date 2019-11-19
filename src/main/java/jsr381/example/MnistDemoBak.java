@@ -16,6 +16,7 @@ import java.util.Map;
  *
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
+@Deprecated
 public class MnistDemoBak {
 
     public static void main(String[] args) throws IOException, ClassificationException, ClassifierCreationException {

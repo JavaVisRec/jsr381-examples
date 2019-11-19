@@ -20,11 +20,11 @@
             "stride": 2
         }, {
             "layerType": "FULLY_CONNECTED",
-            "width": 10,
+            "width": 20,
             "activation": "TANH"
         }, {
             "layerType": "FULLY_CONNECTED",
-            "width": 10,
+            "width": 20,
             "activation": "TANH"
         },        
         {

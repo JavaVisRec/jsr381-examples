@@ -1,4 +1,4 @@
-package jsr381.example;
+package jsr381.example.spam;
 
 import visrec.ri.ml.classification.BinaryClassifierNetwork;
 import deepnetts.data.DataSets;

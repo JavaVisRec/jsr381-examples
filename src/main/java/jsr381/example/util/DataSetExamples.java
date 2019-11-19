@@ -116,13 +116,16 @@ public class DataSetExamples {
      */
     public static MnistDataSet getMnistDataSet() throws IOException { // print out message since it can take a while
         File mnistFolder = Paths.get(System.getProperty("java.io.tmpdir"), "visrec-datasets", "mnist").toFile();
-        System.out.println(String.format("Downloading MNIST training dataset to: %s - this may take a while!", mnistFolder.getAbsolutePath()));
+        System.out.println(String.format("Downloading and unpacking MNIST training set to: %s - this may take a while!", mnistFolder.getAbsolutePath()));
         if (!mnistFolder.exists()) {
             if (!mnistFolder.mkdirs()) {
                 throw new IOException("Couldn't create temporary directories to download the Mnist training dataset.");
-            }
+            }            
         }
-        downloadZip("https://github.com/JavaVisRec/jsr381-examples-datasets/raw/master/mnist_training_data_png.zip", mnistFolder);
+        
+        // check if mnist zip  allready exists  - don't download it again if its there
+        downloadZip("https://github.com/JavaVisRec/jsr381-examples-datasets/raw/master/mnist_training_data_png.zip", mnistFolder);                   
+        
         File trainingIndexFile = new File(Paths.get(mnistFolder.getAbsolutePath(), "training").toFile(), "train.txt");
         if (!trainingIndexFile.exists())
             throw new FileNotFoundException(trainingIndexFile + " not properly downloaded");
@@ -139,7 +142,7 @@ public class DataSetExamples {
             throw new FileNotFoundException(architectureFile + " does not exist");
 
         return new MnistDataSet()
-                .setNetworkArchitectureFile(architectureFile)
+                .setNetworkArchitectureFile(architectureFile) // we dont need architecture in data set
                 .setLabelsFile(trainingLabelsFile)
                 .setTrainingFile(trainingIndexFile);
     }
@@ -217,6 +220,12 @@ public class DataSetExamples {
         return new DeepNettsBasicDataSet.Item(in, out);
     }
 
+    /**
+     * Downloads and unzips file from specified url.
+     * 
+     * @param httpsURL
+     * @param basePath 
+     */
     private static void downloadZip(String httpsURL, File basePath)  {
         URL url = null;
         try {

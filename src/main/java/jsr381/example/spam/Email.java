@@ -1,7 +1,10 @@
-package jsr381.example;
+package jsr381.example.spam;
 
 /**
  * Example Email class that implements Classifiable interface in order to enable classification of its instances.
+ * It should wrap instance of some email, and provide interface that will allow building classifiers.
+ * and classifying instances of this class.
+ * The end user should not thing about low level how to convert/encode objects into the for used by ML algorithm.
  * 
  * @see Classifier 
  * @author Zoran Sevarac
