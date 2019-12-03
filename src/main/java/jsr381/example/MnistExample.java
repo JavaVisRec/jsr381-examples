@@ -1,15 +1,15 @@
 package jsr381.example;
 
+import jsr381.example.util.DataSetExamples;
+
+import javax.visrec.ml.ClassificationException;
+import javax.visrec.ml.ClassifierCreationException;
+import javax.visrec.ml.classification.ImageClassifier;
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Paths;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-import javax.visrec.AbstractImageClassifier;
-import javax.visrec.util.VisRecConstants;
-import jsr381.example.util.DataSetExamples;
-import visrec.ri.ml.classification.ImageClassifierNetwork;
 
 /**
  * Handwritten digit recognition using MNIST data set - image classification hello world.
@@ -18,7 +18,7 @@ import visrec.ri.ml.classification.ImageClassifierNetwork;
  */
 public class MnistExample {
 
-    public static void main(String[] args) throws IOException, URISyntaxException {
+    public static void main(String[] args) throws IOException, ClassificationException, ClassifierCreationException {
         // Download the dataset and calculate how much time it took
         long start = System.currentTimeMillis();
         DataSetExamples.MnistDataSet dataSet = DataSetExamples.getMnistDataSet();
@@ -28,29 +28,41 @@ public class MnistExample {
         Map<String, Object> conf = new HashMap<>();
 
         // provide data set properties: image dimesions, categories/labels and list of image files
-        conf.put(VisRecConstants.IMAGE_WIDTH, "28");  // width of example images
-        conf.put(VisRecConstants.IMAGE_HEIGHT, "28" ); // height of example images
-        conf.put(VisRecConstants.LABELS_FILE, dataSet.getLabelsFile().getAbsolutePath());
+        conf.put("imageWidth", "28");  // width of example images
+        conf.put("imageHeight", "28" ); // height of example images
+        conf.put("labelsFile", dataSet.getLabelsFile().getAbsolutePath());
 
         // specify training file which contains a list of images to learn
-        conf.put(VisRecConstants.TRAINING_FILE, dataSet.getTrainingFile().getAbsolutePath());
+        conf.put("trainingsFile", dataSet.getTrainingFile().getAbsolutePath());
 
         // specify network architecture in json file
-        conf.put("visrec.model.deepnetts",  Paths.get(MnistExample.class.getClassLoader().getResource("mnist_arch.json").toURI()).toFile());
+        URL archUrl = MnistExample.class.getClassLoader().getResource("mnist_arch.json");
+        if (archUrl == null) {
+            throw new IOException("Network architecture could not be found in resources");
+        }
+        conf.put("networkArchitecture", archUrl.getFile());
+
         // save trained model to file at the end
-        conf.put(VisRecConstants.MODEL_SAVE_TO, "mnist.dnet");
+        conf.put("modelFile", "mnist.dnet");
 
         // learning algorithm settings
-        conf.put(VisRecConstants.SGD_MAX_ERROR, "0.03" );
-        conf.put(VisRecConstants.SGD_MAX_EPOCHS , "100" );
-        conf.put(VisRecConstants.SGD_LEARNING_RATE, "0.01" );
-        
+        conf.put("maxError", "1.4" );
+        conf.put("maxEpochs" , "100" );
+        conf.put("learningRate", "0.01" );
+
         // building image classifier with specified configuration
-        AbstractImageClassifier imageClassifier = ImageClassifierNetwork.builder().build(conf);
-       
+        ImageClassifier imageClassifier = ImageClassifier.builder()
+                .build(conf);
+        
         // Using image classifier
-        Map<String, Float> results = imageClassifier.classify(new File("00060.png"));
-        // print out probabilities for all possible image classes
+        // Get the image file from resources
+        URL input = MnistDemoWithBuildingBlocks.class.getClassLoader().getResource("00060.png");
+        if (input == null) {
+            throw new IOException("Input file not found in resources");
+        }
+        Map<String, Float> results = imageClassifier.classify(new File(input.getFile()));
+
+        // Print the outcome
         System.out.println(results);
     }
 }

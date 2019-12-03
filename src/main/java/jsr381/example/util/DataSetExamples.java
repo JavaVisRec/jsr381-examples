@@ -3,6 +3,8 @@ package jsr381.example.util;
 import deepnetts.data.DeepNettsBasicDataSet;
 import deepnetts.util.DeepNettsException;
 
+import javax.visrec.ml.data.BasicDataSet;
+import javax.visrec.ml.data.DataSet;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
@@ -14,8 +16,6 @@ import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-import javax.visrec.ml.data.BasicDataSet;
-import javax.visrec.ml.data.DataSet;
 
 /**
  * @author Kevin Berendsen
@@ -134,9 +134,12 @@ public class DataSetExamples {
         if (!trainingLabelsFile.exists())
             throw new FileNotFoundException(trainingLabelsFile + " not properly downloaded");
 
-        File architectureFile = downloadSingleFile(new URL("https://github.com/JavaVisRec/jsr381-examples-datasets/blob/master/mnist.json"));
+        URL archUrl = DataSetExamples.class.getClassLoader().getResource("mnist1.json");
+        if (archUrl == null)
+            throw new FileNotFoundException("Architecture file not found");
+        File architectureFile = new File(archUrl.getFile());
         if (!architectureFile.exists())
-            throw new FileNotFoundException(architectureFile + " not properly downloaded");
+            throw new FileNotFoundException(architectureFile + " does not exist");
 
         return new MnistDataSet()
                 .setNetworkArchitectureFile(architectureFile) // we dont need architecture in data set
