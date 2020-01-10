@@ -1,11 +1,13 @@
 package jsr381.example.spam;
 
-import visrec.ri.ml.classification.BinaryClassifierNetwork;
 import deepnetts.data.DataSets;
+import visrec.ri.ml.classification.BinaryClassifierNetwork;
+
+import javax.visrec.ml.ClassificationException;
+import javax.visrec.ml.classification.DeprecatedBinaryClassifier;
+import javax.visrec.ml.data.DataSet;
 import java.io.IOException;
 import java.net.URL;
-import javax.visrec.ml.classification.BinaryClassifier;
-import javax.visrec.ml.data.DataSet;
 
 /**
  * Minimum example for creating binary classifier from CSV file.
@@ -15,7 +17,7 @@ import javax.visrec.ml.data.DataSet;
  */
 public class SpamClassificationExample {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ClassificationException {
         
         // create data set from specified file
         URL spamCsvResource = SpamClassificationExample.class.getClassLoader().getResource("spam.csv");
@@ -26,7 +28,7 @@ public class SpamClassificationExample {
         DataSets.normalizeMax(dataSet);
         
         // Build binary classifer based on neural network
-        BinaryClassifier<float[]> spamClassifier = BinaryClassifierNetwork.builder()            
+        DeprecatedBinaryClassifier<float[]> spamClassifier = BinaryClassifierNetwork.builder()
                                                         .inputsNum(57)
                                                         .hiddenLayers(5)
                                                         .maxError(0.03)

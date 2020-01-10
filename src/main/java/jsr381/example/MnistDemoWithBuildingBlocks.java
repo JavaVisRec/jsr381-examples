@@ -2,9 +2,11 @@ package jsr381.example;
 
 import jsr381.example.util.DataSetExamples;
 
+import javax.imageio.ImageIO;
 import javax.visrec.ml.ClassificationException;
 import javax.visrec.ml.ClassifierCreationException;
 import javax.visrec.ml.classification.ImageClassifier;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -24,7 +26,7 @@ public class MnistDemoWithBuildingBlocks {
         System.out.println(String.format("Took %d milliseconds to download the MNIST dataset", System.currentTimeMillis() - start));
 
         // Configuration to train the model
-        ImageClassifier classifier = ImageClassifier.builder()
+        ImageClassifier<BufferedImage> classifier = ImageClassifier.builderOf(BufferedImage.class)
                 .imageHeight(28)
                 .imageWidth(28)
                 .labelsFile(dataSet.getLabelsFile())
@@ -35,13 +37,14 @@ public class MnistDemoWithBuildingBlocks {
                 .maxEpochs(100)
                 .learningRate(0.01f)
                 .build();
-
         // Get input imgae from resources and use the classifier.
         URL input = MnistDemoWithBuildingBlocks.class.getClassLoader().getResource("00060.png");
         if (input == null) {
             throw new IOException("Input file not found in resources");
         }
-        Map<String, Float> results = classifier.classify(new File(input.getFile()));
+
+        BufferedImage image = ImageIO.read(new File(input.getFile()));
+        Map<String, Float> results = classifier.classify(image);
 
         // Print the outcome
         System.out.println(results);

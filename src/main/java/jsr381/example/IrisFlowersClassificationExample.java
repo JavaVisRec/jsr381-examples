@@ -1,17 +1,17 @@
 package jsr381.example;
 
 import deepnetts.data.DataSets;
-import deepnetts.eval.Evaluators;
 import jsr381.example.util.DataSetExamples;
 import visrec.ri.ml.classification.MultiClassClassifierNetwork;
 
-import java.io.IOException;
-import java.util.Map;
+import javax.visrec.ml.ClassificationException;
 import javax.visrec.ml.classification.MultiClassClassifier;
 import javax.visrec.ml.data.DataSet;
+import java.io.IOException;
+import java.util.Map;
 
 public class IrisFlowersClassificationExample {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ClassificationException {
 
         // load iris data set
         DataSet dataSet = DataSetExamples.getIrisClassificationDataSet();

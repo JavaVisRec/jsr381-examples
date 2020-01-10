@@ -3,9 +3,11 @@ package jsr381.example;
 import deepnetts.net.FeedForwardNetwork;
 import jsr381.example.util.DataSetExamples;
 import visrec.ri.ml.regression.LogisticRegressionNetwork;
+
+import javax.visrec.ml.ClassificationException;
+import javax.visrec.ml.data.DataSet;
 import javax.visrec.ml.regression.LogisticRegression;
 import java.io.IOException;
-import javax.visrec.ml.data.DataSet;
 
 /**
  * This example shows how to instantiate, train, evaluate and use Logistic Regression using Machine Learning Layer from VisRec API.
@@ -14,7 +16,7 @@ import javax.visrec.ml.data.DataSet;
  */
 public class LogisticRegressionExample {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ClassificationException {
 
         // Get the DataSet from file location
         DataSet dataSet = DataSetExamples.getSonarDataSet();

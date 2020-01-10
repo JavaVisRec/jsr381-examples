@@ -40,7 +40,7 @@ public class Cifar10Example {
         conf.put("visrec.sgd.learningRate", "0.01");
         conf.put("modelFile", "cifar10.dnet");  // save trained model in file at the end (model has to provide this feature)
 
-        ImageClassifier imageClassifier = ImageClassifierNetwork.builder().build(conf); // maybe also attach some listener  (or callback function) to be notified when model building is complete?
+        ImageClassifier<BufferedImage> imageClassifier = ImageClassifierNetwork.builder().build(conf); // maybe also attach some listener  (or callback function) to be notified when model building is complete?
         System.out.println("Done building image classifier.");
         System.out.println("Classifiying image ...");
 
