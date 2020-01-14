@@ -8,6 +8,7 @@ import javax.visrec.ml.ClassificationException;
 import javax.visrec.ml.data.DataSet;
 import javax.visrec.ml.regression.LogisticRegression;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * This example shows how to instantiate, train, evaluate and use Logistic Regression using Machine Learning Layer from VisRec API.
@@ -37,7 +38,7 @@ public class LogisticRegressionExample {
                 0.7104f,0.808f,0.6791f,0.3857f,0.1307f,0.2604f,0.5121f,0.7547f,0.8537f,0.8507f,0.6692f,0.6097f,0.4943f,
                 0.2744f,0.051f,0.2834f,0.2825f,0.4256f,0.2641f,0.1386f,0.1051f,0.1343f,0.0383f,0.0324f,0.0232f,0.0027f,
                 0.0065f,0.0159f,0.0072f,0.0167f,0.018f,0.0084f,0.009f,0.0032f};
-        Float result = logReg.classify(someInput);
+        Map<String, Float> result = logReg.classify(someInput);
 
         System.out.println(result);
 
