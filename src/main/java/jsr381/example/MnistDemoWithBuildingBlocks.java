@@ -6,6 +6,7 @@ import javax.imageio.ImageIO;
 import javax.visrec.ml.ClassificationException;
 import javax.visrec.ml.ClassifierCreationException;
 import javax.visrec.ml.classification.ImageClassifier;
+import javax.visrec.ml.classification.NeuralNetImageClassifier;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -26,11 +27,12 @@ public class MnistDemoWithBuildingBlocks {
         System.out.println(String.format("Took %d milliseconds to download the MNIST dataset", System.currentTimeMillis() - start));
 
         // Configuration to train the model
-        ImageClassifier<BufferedImage> classifier = ImageClassifier.builderOf(BufferedImage.class)
+        ImageClassifier<BufferedImage> classifier = NeuralNetImageClassifier.builder()
+                .inputClass(BufferedImage.class)
                 .imageHeight(28)
                 .imageWidth(28)
                 .labelsFile(dataSet.getLabelsFile())
-                .trainingsFile(dataSet.getTrainingFile())
+                .trainingFile(dataSet.getTrainingFile())
                 .networkArchitecture(dataSet.getNetworkArchitectureFile())
                 .modelFile(new File("mnist.dnet"))
                 .maxError(1.4f)

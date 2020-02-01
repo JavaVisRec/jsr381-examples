@@ -5,6 +5,7 @@ import jsr381.example.util.DataSetExamples;
 import javax.visrec.ml.ClassificationException;
 import javax.visrec.ml.ClassifierCreationException;
 import javax.visrec.ml.classification.ImageClassifier;
+import javax.visrec.ml.classification.NeuralNetImageClassifier;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -52,7 +53,8 @@ public class MnistExample {
         conf.put("learningRate", "0.01" );
 
         // building image classifier with specified configuration
-        ImageClassifier<BufferedImage> imageClassifier = ImageClassifier.builderOf(BufferedImage.class)
+        ImageClassifier<BufferedImage> imageClassifier = NeuralNetImageClassifier.builder()
+                .inputClass(BufferedImage.class)
                 .build(conf);
         
         // Using image classifier
