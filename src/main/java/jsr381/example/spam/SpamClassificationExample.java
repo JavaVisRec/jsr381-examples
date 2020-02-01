@@ -23,7 +23,7 @@ public class SpamClassificationExample {
         if (spamCsvResource == null) {
             throw new IOException("spam.csv not found");
         }
-        
+
         // Build binary classifer based on neural network
         BinaryClassifier<float[]> spamClassifier = NeuralNetBinaryClassifier.builder()
                                                         .inputClass(float[].class)
