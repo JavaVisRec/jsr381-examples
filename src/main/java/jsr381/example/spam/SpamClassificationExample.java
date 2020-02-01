@@ -3,10 +3,10 @@ package jsr381.example.spam;
 import javax.visrec.ml.ClassificationException;
 import javax.visrec.ml.ClassifierCreationException;
 import javax.visrec.ml.classification.BinaryClassifier;
+import javax.visrec.ml.classification.NeuralNetBinaryClassifier;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Map;
 
 /**
  * Minimum example for creating binary classifier from CSV file.
@@ -23,11 +23,10 @@ public class SpamClassificationExample {
         if (spamCsvResource == null) {
             throw new IOException("spam.csv not found");
         }
-//        DataSet dataSet = DataSets.readCsv(spamCsvResource.getFile(), 57, 1, true);
-//        DataSets.normalizeMax(dataSet);
         
         // Build binary classifer based on neural network
-        BinaryClassifier<float[]> spamClassifier = BinaryClassifier.builderOf(float[].class)
+        BinaryClassifier<float[]> spamClassifier = NeuralNetBinaryClassifier.builder()
+                                                        .inputClass(float[].class)
                                                         .inputsNum(57)
                                                         .hiddenLayers(5)
                                                         .maxError(0.03f)
@@ -38,8 +37,8 @@ public class SpamClassificationExample {
 
         // using trained classifier
         float[] testEmail = getExampleEmailToClassify();
-        Map<String, Float> result = spamClassifier.classify(testEmail);
-        System.out.println(result);        
+        Float result = spamClassifier.classify(testEmail);
+        System.out.println(result);
     }
 
     static float[] getExampleEmailToClassify() {
