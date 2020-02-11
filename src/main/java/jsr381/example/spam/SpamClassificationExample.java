@@ -28,7 +28,7 @@ public class SpamClassificationExample {
         BinaryClassifier<float[]> spamClassifier = NeuralNetBinaryClassifier.builder()
                                                         .inputClass(float[].class)
                                                         .inputsNum(57)
-                                                        .hiddenLayers(5)
+                                                        .hiddenLayers(30, 15)
                                                         .maxError(0.03f)
                                                         .maxEpochs(15000)
                                                         .learningRate(0.01f)                     

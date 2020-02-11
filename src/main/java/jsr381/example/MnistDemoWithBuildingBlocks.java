@@ -28,17 +28,18 @@ public class MnistDemoWithBuildingBlocks {
 
         // Configuration to train the model
         ImageClassifier<BufferedImage> classifier = NeuralNetImageClassifier.builder()
-                .inputClass(BufferedImage.class)
-                .imageHeight(28)
-                .imageWidth(28)
-                .labelsFile(dataSet.getLabelsFile())
-                .trainingFile(dataSet.getTrainingFile())
-                .networkArchitecture(dataSet.getNetworkArchitectureFile())
-                .modelFile(new File("mnist.dnet"))
-                .maxError(1.4f)
-                .maxEpochs(100)
-                .learningRate(0.01f)
-                .build();
+                                                        .inputClass(BufferedImage.class)
+                                                        .imageHeight(28)
+                                                        .imageWidth(28)
+                                                        .labelsFile(dataSet.getLabelsFile())
+                                                        .trainingFile(dataSet.getTrainingFile())
+                                                        .networkArchitecture(dataSet.getNetworkArchitectureFile())
+                                                        .modelFile(new File("mnist.dnet"))
+                                                        .maxError(1.4f)
+                                                        .maxEpochs(100)
+                                                        .learningRate(0.01f)
+                                                        .build();
+        
         // Get input imgae from resources and use the classifier.
         URL input = MnistDemoWithBuildingBlocks.class.getClassLoader().getResource("00060.png");
         if (input == null) {

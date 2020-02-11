@@ -15,12 +15,12 @@ public final class Email implements Classifiable<float[], Boolean> {
     private Boolean isSpam;
         
     public Email(String message) {
-        // transform email to feature vector
+        // transform email to feature vector: extract uppercale letters, keywords, etc.
         emailFeatures = new float[57];
         emailFeatures[56] = 1;        
     }
     
-    // TODO: method to transform email message object to feature vector
+    // TODO: a method to transform email message object to feature vector
 
     @Override
     public float[] getClassifierInput() {

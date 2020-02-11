@@ -15,14 +15,14 @@ public class IrisFlowersClassificationExample {
 
         // load iris data set
         DataSet dataSet = DataSetExamples.getIrisClassificationDataSet();
-        DataSet[] trainTest = DataSets.trainTestSplit(dataSet, 0.6);
+        DataSet[] trainTest = DataSets.trainTestSplit(dataSet, 0.7);
 
         // build multi class classifier using deep netts implementation of feed forward network under the hood
         MultiClassClassifier<float[], String> irisClassifier = MultiClassClassifierNetwork.builder() 
                                                                 .inputsNum(4)
                                                                 .hiddenLayers(16)                       
                                                                 .outputsNum(3)                          
-                                                                .maxEpochs(2000)
+                                                                .maxEpochs(9000)
                                                                 .maxError(0.03f)
                                                                 .learningRate(0.01f)
                                                                 .trainingSet(trainTest[0])

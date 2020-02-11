@@ -1,8 +1,11 @@
 package jsr381.example.spam;
 
 /**
+ * Work in progress: allow direct classification of Java objects, no need to transfer to data structures used internally by ML. Simplify usage and integration.
  * This interface should be implemented for classes whose objects we want to be able to classify.Instances of classes that implement this interface can be classified, and used as examples
- to build machine learning based classifiers.Typical implementation scenario is to wrap domain specific class and implement this interface.
+ * to build machine learning based classifiers.Typical implementation scenario is to wrap domain specific class and implement this interface.
+ * 
+ * TODO: maybe this could extend ExampleDataItem
  * 
  * @author Zoran Sevarac
  * @param <T> Type of input for classifier
