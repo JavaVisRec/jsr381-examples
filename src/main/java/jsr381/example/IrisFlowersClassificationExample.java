@@ -13,11 +13,11 @@ import java.util.Map;
 public class IrisFlowersClassificationExample {
     public static void main(String[] args) throws IOException, ClassificationException {
 
-        // load iris data set
+        // Load iris data set
         DataSet dataSet = DataSetExamples.getIrisClassificationDataSet();
         DataSet[] trainTest = DataSets.trainTestSplit(dataSet, 0.7);
 
-        // build multi class classifier using deep netts implementation of feed forward network under the hood
+        // Build multi class classifier using Deep Netts implementation of Feed Forward Network under the hood
         MultiClassClassifier<float[], String> irisClassifier = MultiClassClassifierNetwork.builder() 
                                                                 .inputsNum(4)
                                                                 .hiddenLayers(16)                       
@@ -28,7 +28,7 @@ public class IrisFlowersClassificationExample {
                                                                 .trainingSet(trainTest[0])
                                                                 .build();
 
-        // use classifier to predict class - returns a map with probabilities associated to possible classes
+        // Use classifier to predict class - returns a map with probabilities associated to possible classes
         Map<String, Float> results = irisClassifier.classify(new float[] {0.1f, 0.2f, 0.3f, 0.4f});
         System.out.println(results);
     }

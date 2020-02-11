@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import javax.visrec.util.VisRecConstants;
 
 /**
  * Handwritten digit recognition using MNIST data set - image classification hello world.
@@ -30,12 +31,12 @@ public class MnistExample {
         Map<String, Object> conf = new HashMap<>();
 
         // provide data set properties: image dimesions, categories/labels and list of image files
-        conf.put("imageWidth", "28");  // width of example images
-        conf.put("imageHeight", "28" ); // height of example images
-        conf.put("labelsFile", dataSet.getLabelsFile().getAbsolutePath());
+        conf.put(VisRecConstants.IMAGE_WIDTH, "28");  // width of example images
+        conf.put(VisRecConstants.IMAGE_HEIGHT, "28" ); // height of example images
+        conf.put(VisRecConstants.LABELS_FILE, dataSet.getLabelsFile().getAbsolutePath());
 
         // specify training file which contains a list of images to learn
-        conf.put("trainingsFile", dataSet.getTrainingFile().getAbsolutePath());
+        conf.put(VisRecConstants.TRAINING_FILE, dataSet.getTrainingFile().getAbsolutePath());
 
         // specify network architecture in json file
         URL archUrl = MnistExample.class.getClassLoader().getResource("mnist_arch.json");
@@ -48,14 +49,14 @@ public class MnistExample {
         conf.put("modelFile", "mnist.dnet");
 
         // learning algorithm settings
-        conf.put("maxError", "1.4" );
-        conf.put("maxEpochs" , "100" );
-        conf.put("learningRate", "0.01" );
+        conf.put(VisRecConstants.SGD_MAX_ERROR, "1.4" );
+        conf.put(VisRecConstants.SGD_MAX_EPOCHS , "100" );
+        conf.put(VisRecConstants.SGD_LEARNING_RATE, "0.01" );
 
         // building image classifier with specified configuration
         ImageClassifier<BufferedImage> imageClassifier = NeuralNetImageClassifier.builder()
-                .inputClass(BufferedImage.class)
-                .build(conf);
+                                                                                .inputClass(BufferedImage.class)
+                                                                                .build(conf);
         
         // Using image classifier
         // Get the image file from resources

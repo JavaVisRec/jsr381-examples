@@ -42,7 +42,7 @@ public class LogisticRegressionExample {
 
         System.out.println(result);
 
-        // performa classifier performance evaluation
+        // TODO: performa classifier performance evaluation
         // evaluate performance using test set
         // logReg.test(trainAndTestSet[1]); // create internal evaluator, performa evaluation and return metrics
 
