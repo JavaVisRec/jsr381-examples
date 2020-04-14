@@ -1,7 +1,7 @@
 package jsr381.example;
 
 import jsr381.example.util.DataSetExamples;
-import visrec.ri.ml.regression.SimpleLinearRegressionNetwork;
+import javax.visrec.ri.ml.regression.SimpleLinearRegressionNetwork;
 
 import javax.visrec.ml.regression.SimpleLinearRegression;
 import java.io.IOException;

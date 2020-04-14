@@ -2,7 +2,7 @@ package jsr381.example;
 
 import deepnetts.net.FeedForwardNetwork;
 import jsr381.example.util.DataSetExamples;
-import visrec.ri.ml.regression.LogisticRegressionNetwork;
+import javax.visrec.ri.ml.regression.LogisticRegressionNetwork;
 
 import javax.visrec.ml.ClassificationException;
 import javax.visrec.ml.data.DataSet;

@@ -1,6 +1,6 @@
 package jsr381.example;
 
-import visrec.ri.ml.classification.ImageClassifierNetwork;
+import javax.visrec.ri.ml.classification.ImageClassifierNetwork;
 
 import javax.imageio.ImageIO;
 import javax.visrec.ml.ClassificationException;

@@ -12,22 +12,27 @@
         <dependency>
             <groupId>javax.visrec</groupId>
             <artifactId>visrec-api</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0.0</version>
         </dependency>
-        <dependency>
+        <!--dependency>
             <groupId>javax.visrec</groupId>
             <artifactId>visrec-ri</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
+            <version>1.0</version>
+        </dependency-->
         <dependency>
             <groupId>org.knowm.xchart</groupId>
             <artifactId>xchart</artifactId>
             <version>3.5.2-SNAPSHOT</version>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>javax.visrec</groupId>
+            <artifactId>visrec-ri</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
-    <repositories>
+    <!--repositories>
         <repository>
             <id>snapshots</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
@@ -38,7 +43,7 @@
                 <enabled>false</enabled>
             </releases>
         </repository>
-    </repositories>
+    </repositories-->
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>

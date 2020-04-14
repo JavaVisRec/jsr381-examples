@@ -2,7 +2,7 @@ package jsr381.example;
 
 import deepnetts.data.DataSets;
 import jsr381.example.util.DataSetExamples;
-import visrec.ri.ml.classification.MultiClassClassifierNetwork;
+import javax.visrec.ri.ml.classification.MultiClassClassifierNetwork;
 
 import javax.visrec.ml.ClassificationException;
 import javax.visrec.ml.classification.MultiClassClassifier;
