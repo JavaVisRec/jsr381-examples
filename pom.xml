@@ -14,17 +14,6 @@
             <artifactId>visrec-api</artifactId>
             <version>1.0.0</version>
         </dependency>
-        <!--dependency>
-            <groupId>javax.visrec</groupId>
-            <artifactId>visrec-ri</artifactId>
-            <version>1.0</version>
-        </dependency-->
-        <dependency>
-            <groupId>org.knowm.xchart</groupId>
-            <artifactId>xchart</artifactId>
-            <version>3.5.2-SNAPSHOT</version>
-            <type>jar</type>
-        </dependency>
         <dependency>
             <groupId>javax.visrec</groupId>
             <artifactId>visrec-ri</artifactId>
