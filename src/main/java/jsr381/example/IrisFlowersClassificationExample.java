@@ -2,11 +2,11 @@ package jsr381.example;
 
 import deepnetts.data.DataSets;
 import jsr381.example.util.DataSetExamples;
-import javax.visrec.ri.ml.classification.MultiClassClassifierNetwork;
 
 import javax.visrec.ml.ClassificationException;
 import javax.visrec.ml.classification.MultiClassClassifier;
 import javax.visrec.ml.data.DataSet;
+import javax.visrec.ri.ml.classification.MultiClassClassifierNetwork;
 import java.io.IOException;
 import java.util.Map;
 
@@ -18,10 +18,10 @@ public class IrisFlowersClassificationExample {
         DataSet[] trainTest = DataSets.trainTestSplit(dataSet, 0.7);
 
         // Build multi class classifier using Deep Netts implementation of Feed Forward Network under the hood
-        MultiClassClassifier<float[], String> irisClassifier = MultiClassClassifierNetwork.builder() 
+        MultiClassClassifier<float[], String> irisClassifier = MultiClassClassifierNetwork.builder()
                                                                 .inputsNum(4)
-                                                                .hiddenLayers(16)                       
-                                                                .outputsNum(3)                          
+                                                                .hiddenLayers(16)
+                                                                .outputsNum(3)
                                                                 .maxEpochs(9000)
                                                                 .maxError(0.03f)
                                                                 .learningRate(0.01f)
