@@ -5,12 +5,19 @@ import deepnetts.util.DeepNettsException;
 
 import javax.visrec.ml.data.BasicDataSet;
 import javax.visrec.ml.data.DataSet;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Enumeration;
@@ -59,12 +66,12 @@ public class DataSetExamples {
             dataSet.setColumnNames(colNames);
             skipCount = 1;
         } else {
-            String[] colNames = new String[inputsNum+outputsNum];
-            for(int i=0; i<inputsNum;i++)
-                colNames[i] = "in"+(i+1);
+            String[] colNames = new String[inputsNum + outputsNum];
+            for (int i = 0; i < inputsNum; i++)
+                colNames[i] = "in" + (i + 1);
 
-            for(int j=0; j<outputsNum;j++)
-                colNames[inputsNum+j] = "out"+(j+1);
+            for (int j = 0; j < outputsNum; j++)
+                colNames[inputsNum + j] = "out" + (j + 1);
 
             dataSet.setColumnNames(colNames);
         }
@@ -94,8 +101,11 @@ public class DataSetExamples {
         return architectureFile;
     }
 
+    @Deprecated
     public static File getMnistTestingSet() throws IOException {
-        File folder = Paths.get(System.getProperty("java.io.tmpdir"), "visrec-datasets", "mnist", "testing").toFile();
+        Path folderPath = Paths.get("datasets", "mnist", "testing");
+        Path zipPath = Paths.get(folderPath.toString(), "dataset.zip");
+        File folder = folderPath.toFile();
 
         if (!folder.exists()) {
             if (!folder.mkdirs()) {
@@ -103,7 +113,7 @@ public class DataSetExamples {
             }
         }
 
-        downloadZip("https://github.com/JavaVisRec/jsr381-examples-datasets/raw/master/mnist_testing_data_png.zip", folder);
+        downloadZip("https://github.com/JavaVisRec/jsr381-examples-datasets/raw/master/mnist_testing_data_png.zip", zipPath);
 
         return folder;
     }
@@ -115,17 +125,19 @@ public class DataSetExamples {
      * @throws IOException
      */
     public static MnistDataSet getMnistDataSet() throws IOException { // print out message since it can take a while
-        File mnistFolder = Paths.get(System.getProperty("java.io.tmpdir"), "visrec-datasets", "mnist").toFile();
-        System.out.println(String.format("Downloading and unpacking MNIST training set to: %s - this may take a while!", mnistFolder.getAbsolutePath()));
+        Path mnistPath = Paths.get("datasets", "mnist");
+        File mnistFolder = mnistPath.toFile();
+        System.out.println(String.format("Downloading and/or unpacking MNIST training set to: %s - this may take a while!", mnistFolder.getAbsolutePath()));
         if (!mnistFolder.exists()) {
             if (!mnistFolder.mkdirs()) {
                 throw new IOException("Couldn't create temporary directories to download the Mnist training dataset.");
-            }            
+            }
         }
-        
-        // check if mnist zip  allready exists  - don't download it again if its there
-        downloadZip("https://github.com/JavaVisRec/jsr381-examples-datasets/raw/master/mnist_training_data_png.zip", mnistFolder);                   
-        
+
+        // check if mnist zip  already exists  - don't download it again if its there
+        Path zipPath = Paths.get(mnistPath.toString(), "dataset.zip");
+        downloadZip("https://github.com/JavaVisRec/jsr381-examples-datasets/raw/master/mnist_training_data_png.zip", zipPath);
+
         File trainingIndexFile = new File(Paths.get(mnistFolder.getAbsolutePath(), "training").toFile(), "train.txt");
         if (!trainingIndexFile.exists())
             throw new FileNotFoundException(trainingIndexFile + " not properly downloaded");
@@ -156,7 +168,8 @@ public class DataSetExamples {
         private File trainingFile;
         private File networkArchitectureFile;
 
-        private MnistDataSet() {}
+        private MnistDataSet() {
+        }
 
         private MnistDataSet setLabelsFile(File labelsFile) {
             this.labelsFile = labelsFile;
@@ -222,14 +235,14 @@ public class DataSetExamples {
 
     /**
      * Downloads and unzips file from specified url.
-     * 
+     *
      * @param httpsURL
-     * @param basePath 
+     * @param path
      */
-    private static void downloadZip(String httpsURL, File basePath)  {
+    private static void downloadZip(String httpsURL, Path path) {
         URL url = null;
         try {
-            File toFile = new File(basePath, "temp.zip");
+            File toFile = path.toFile();
             url = new URL(httpsURL);
             ReadableByteChannel rbc = Channels.newChannel(url.openStream());
             FileOutputStream fos = new FileOutputStream(toFile);
@@ -237,9 +250,6 @@ public class DataSetExamples {
             fos.close();
             rbc.close();
             unzip(toFile);
-            if (!toFile.delete()) {
-                toFile.deleteOnExit();
-            }
         } catch (IOException ioException) {
             throw new RuntimeException(ioException);
         }
@@ -248,7 +258,7 @@ public class DataSetExamples {
     private static void unzip(File fileToBeUnzipped) {
         File dir = new File(fileToBeUnzipped.getParent());
 
-        if(!dir.exists())
+        if (!dir.exists())
             dir.mkdirs();
 
         try {
@@ -264,6 +274,9 @@ public class DataSetExamples {
                 File file = Paths.get(fileToBeUnzipped.getParent(), name).toFile();
                 if (name.endsWith("/")) {
                     file.mkdirs();
+                    continue;
+                }
+                if (file.exists()) {
                     continue;
                 }
 

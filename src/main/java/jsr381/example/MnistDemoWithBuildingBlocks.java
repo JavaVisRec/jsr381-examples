@@ -25,7 +25,7 @@ public class MnistDemoWithBuildingBlocks {
         // Download the dataset and calculate how much time it took
         long start = System.currentTimeMillis();
         DataSetExamples.MnistDataSet dataSet = DataSetExamples.getMnistDataSet();
-        System.out.println(String.format("Took %d milliseconds to download the MNIST dataset", System.currentTimeMillis() - start));
+        System.out.println(String.format("Took %d milliseconds to download and/or unzip the MNIST dataset", System.currentTimeMillis() - start));
 
         // Configuration to train the model
         ImageClassifier<BufferedImage> classifier = NeuralNetImageClassifier.builder()
