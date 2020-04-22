@@ -19,7 +19,7 @@ import java.util.Map;
  *
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
-public class MnistDemoWithBuildingBlocks {
+public class MnistWithBuildingBlocksExample {
 
     public static void main(String[] args) throws IOException, ClassifierCreationException, ClassificationException {
         // Download the dataset and calculate how much time it took
@@ -42,7 +42,7 @@ public class MnistDemoWithBuildingBlocks {
                 .build();
 
         // Get input imgae from resources and use the classifier.
-        URL input = MnistDemoWithBuildingBlocks.class.getClassLoader().getResource("00060.png");
+        URL input = MnistWithBuildingBlocksExample.class.getClassLoader().getResource("00060.png");
         if (input == null) {
             throw new IOException("Input file not found in resources");
         }
