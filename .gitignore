@@ -1,0 +1,15 @@
+.idea/
+*.iml
+.gradle/
+gradle/
+*/build/**
+*/target/**
+target/
+build/
+/logs/
+/mnist.dnet
+datasets/
+# Eclipse
+.classpath
+.project
+.settings/
