@@ -17,6 +17,7 @@ import java.net.URLConnection;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -301,4 +302,42 @@ public class DataSetExamples {
         }
     }
 
+	public static MnistDataSet getCatDogDataSet() throws IOException {
+		Path mnistPath = Paths.get("datasets", "cats_and_dogs");
+		File mnistFolder = mnistPath.toFile();
+		System.out.println(
+				String.format("Downloading and/or unpacking cat_and_dog training set to: %s - this may take a while!",
+						mnistFolder.getAbsolutePath()));
+		if (!mnistFolder.exists()) {
+			if (!mnistFolder.mkdirs()) {
+				throw new IOException(
+						"Couldn't create temporary directories to download the cat_and_dog training dataset.");
+			}
+		}
+
+		// check if cat_and_dog zip already exists - don't download it again if its
+		// there
+		Path zipPath = Paths.get(mnistPath.toString(), "dataset.zip");
+		downloadZip(
+				"https://github.com/JavaVisRec/jsr381-examples-datasets/raw/master/cats_and_dogs_training_data_png.zip",
+				zipPath);
+
+		File trainingIndexFile = new File(Paths.get(mnistFolder.getAbsolutePath(), "training").toFile(), "train.txt");
+		if (!trainingIndexFile.exists())
+			throw new FileNotFoundException(trainingIndexFile + " not properly downloaded");
+
+		File trainingLabelsFile = new File(Paths.get(mnistFolder.getAbsolutePath(), "training").toFile(), "labels.txt");
+		if (!trainingLabelsFile.exists())
+			throw new FileNotFoundException(trainingLabelsFile + " not properly downloaded");
+
+		URL archUrl = DataSetExamples.class.getClassLoader().getResource("catdog_arch.json");
+		if (archUrl == null)
+			throw new FileNotFoundException("Architecture file not found");
+		File architectureFile = new File(archUrl.getFile());
+		if (!architectureFile.exists())
+			throw new FileNotFoundException(architectureFile + " does not exist");
+
+		return new MnistDataSet().setNetworkArchitectureFile(architectureFile) // we dont need architecture in data set
+				.setLabelsFile(trainingLabelsFile).setTrainingFile(trainingIndexFile);
+	}
 }
