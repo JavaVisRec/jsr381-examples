@@ -9,7 +9,3 @@ build/
 /logs/
 /mnist.dnet
 datasets/
-# Eclipse
-.classpath
-.project
-.settings/
