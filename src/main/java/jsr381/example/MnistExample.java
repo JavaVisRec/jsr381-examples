@@ -15,9 +15,10 @@ import java.util.Map;
 
 /**
  * Handwritten digit recognition using MNIST data set - image classification hello world.
- *
- * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
+ * 
+ * This example is deprectaed
  */
+@Deprecated
 public class MnistExample {
 
     public static void main(String[] args) throws IOException, ClassificationException, ClassifierCreationException {
@@ -38,7 +39,7 @@ public class MnistExample {
         conf.put("trainingFile", dataSet.getTrainingFile().getAbsolutePath());
 
         // specify network architecture in json file
-        conf.put("networkArchitecture", dataSet.getNetworkArchitectureFile().getAbsolutePath());
+        conf.put("networkArchitecture", "pathToArch");
 
         // learning algorithm settings
         conf.put("maxError", "1.4");

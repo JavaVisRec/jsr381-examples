@@ -34,10 +34,10 @@ public class MnistWithBuildingBlocksExample {
                 .imageWidth(28)
                 .labelsFile(dataSet.getLabelsFile())
                 .trainingFile(dataSet.getTrainingFile())
-                .networkArchitecture(dataSet.getNetworkArchitectureFile())
+                .networkArchitecture(new File("src/main/resources/mnist_arch.json")) //change this not in data set but from jsin file in resources folder?
                 .exportModel(Paths.get("mnist.dnet"))
-                .maxError(1.4f)
-                .maxEpochs(100)
+                .maxError(0.05f)
+                .maxEpochs(3)
                 .learningRate(0.01f)
                 .build();
 

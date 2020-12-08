@@ -11,7 +11,7 @@ package jsr381.example.spam;
  */
 public final class Email implements Classifiable<float[], Boolean> {
     
-    private float[] emailFeatures;
+    private final float[] emailFeatures;
     private Boolean isSpam;
         
     public Email(String message) {
@@ -20,8 +20,6 @@ public final class Email implements Classifiable<float[], Boolean> {
         emailFeatures[56] = 1;        
     }
     
-    // TODO: a method to transform email message object to feature vector
-
     @Override
     public float[] getClassifierInput() {
         return emailFeatures;

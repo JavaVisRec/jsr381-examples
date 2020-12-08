@@ -155,7 +155,7 @@ public class DataSetExamples {
             throw new FileNotFoundException(architectureFile + " does not exist");
 
         return new MnistDataSet()
-                .setNetworkArchitectureFile(architectureFile) // we dont need architecture in data set
+            //    .setNetworkArchitectureFile(architectureFile) // we dont need architecture in data set
                 .setLabelsFile(trainingLabelsFile)
                 .setTrainingFile(trainingIndexFile);
     }
@@ -167,7 +167,7 @@ public class DataSetExamples {
     public static class MnistDataSet {
         private File labelsFile;
         private File trainingFile;
-        private File networkArchitectureFile;
+        //private File networkArchitectureFile;
 
         private MnistDataSet() {
         }
@@ -182,10 +182,10 @@ public class DataSetExamples {
             return this;
         }
 
-        private MnistDataSet setNetworkArchitectureFile(File networkArchitectureFile) {
-            this.networkArchitectureFile = networkArchitectureFile;
-            return this;
-        }
+//        private MnistDataSet setNetworkArchitectureFile(File networkArchitectureFile) {
+//            this.networkArchitectureFile = networkArchitectureFile;
+//            return this;
+//        }
 
         public File getLabelsFile() {
             return labelsFile;
@@ -195,16 +195,15 @@ public class DataSetExamples {
             return trainingFile;
         }
 
-        public File getNetworkArchitectureFile() {
-            return networkArchitectureFile;
-        }
+//        public File getNetworkArchitectureFile() {
+//            return networkArchitectureFile;
+//        }
 
         @Override
         public String toString() {
             return "MnistDataSet{" +
                     "labelsFile=" + labelsFile +
                     ", trainingFile=" + trainingFile +
-                    ", networkArchitectureFile=" + networkArchitectureFile +
                     '}';
         }
     }
@@ -330,14 +329,14 @@ public class DataSetExamples {
 		if (!trainingLabelsFile.exists())
 			throw new FileNotFoundException(trainingLabelsFile + " not properly downloaded");
 
-		URL archUrl = DataSetExamples.class.getClassLoader().getResource("catdog_arch.json");
-		if (archUrl == null)
-			throw new FileNotFoundException("Architecture file not found");
-		File architectureFile = new File(archUrl.getFile());
-		if (!architectureFile.exists())
-			throw new FileNotFoundException(architectureFile + " does not exist");
+//		URL archUrl = DataSetExamples.class.getClassLoader().getResource("catdog_arch.json");
+//		if (archUrl == null)
+//			throw new FileNotFoundException("Architecture file not found");
+//		File architectureFile = new File(archUrl.getFile());
+//		if (!architectureFile.exists())
+//			throw new FileNotFoundException(architectureFile + " does not exist");
 
-		return new MnistDataSet().setNetworkArchitectureFile(architectureFile) // we dont need architecture in data set
+		return new MnistDataSet()
 				.setLabelsFile(trainingLabelsFile).setTrainingFile(trainingIndexFile);
 	}
 }

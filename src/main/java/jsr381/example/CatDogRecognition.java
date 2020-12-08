@@ -29,7 +29,7 @@ public class CatDogRecognition {
 		// Configuration to train the model
 		ImageClassifier<BufferedImage> classifier = NeuralNetImageClassifier.builder().inputClass(BufferedImage.class)
 				.imageHeight(128).imageWidth(128).labelsFile(dataSet.getLabelsFile())
-				.trainingFile(dataSet.getTrainingFile()).networkArchitecture(dataSet.getNetworkArchitectureFile())
+				.trainingFile(new File("network_arch.json"))
 				.exportModel(Paths.get("catdog.dnet")).maxError(0.03f).maxEpochs(1000).learningRate(0.01f).build();
 
 		// Get input image from resources and use the classifier.
