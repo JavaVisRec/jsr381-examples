@@ -24,7 +24,7 @@ public class MnistWithBuildingBlocksExample {
     public static void main(String[] args) throws IOException, ClassifierCreationException, ClassificationException {
         // Download the dataset and calculate how much time it took
         long start = System.currentTimeMillis();
-        DataSetExamples.MnistDataSet dataSet = DataSetExamples.getMnistDataSet();
+        DataSetExamples.ExampleDataSet dataSet = DataSetExamples.getMnistDataSet();
         System.out.println(String.format("Took %d milliseconds to download and/or unzip the MNIST dataset", System.currentTimeMillis() - start));
 
         // Configuration to train the model

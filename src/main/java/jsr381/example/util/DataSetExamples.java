@@ -125,7 +125,7 @@ public class DataSetExamples {
      * @return path to downloaded data set
      * @throws IOException
      */
-    public static MnistDataSet getMnistDataSet() throws IOException { // print out message since it can take a while
+    public static ExampleDataSet getMnistDataSet() throws IOException { // print out message since it can take a while
         Path mnistPath = Paths.get("datasets", "mnist");
         File mnistFolder = mnistPath.toFile();
         System.out.println(String.format("Downloading and/or unpacking MNIST training set to: %s - this may take a while!", mnistFolder.getAbsolutePath()));
@@ -154,7 +154,7 @@ public class DataSetExamples {
         if (!architectureFile.exists())
             throw new FileNotFoundException(architectureFile + " does not exist");
 
-        return new MnistDataSet()
+        return new ExampleDataSet()
             //    .setNetworkArchitectureFile(architectureFile) // we dont need architecture in data set
                 .setLabelsFile(trainingLabelsFile)
                 .setTrainingFile(trainingIndexFile);
@@ -164,28 +164,22 @@ public class DataSetExamples {
         System.out.println(getMnistDataSet());
     }
 
-    public static class MnistDataSet {
+    public static class ExampleDataSet {
         private File labelsFile;
         private File trainingFile;
-        //private File networkArchitectureFile;
 
-        private MnistDataSet() {
+        private ExampleDataSet() {
         }
 
-        private MnistDataSet setLabelsFile(File labelsFile) {
+        private ExampleDataSet setLabelsFile(File labelsFile) {
             this.labelsFile = labelsFile;
             return this;
         }
 
-        private MnistDataSet setTrainingFile(File trainingFile) {
+        private ExampleDataSet setTrainingFile(File trainingFile) {
             this.trainingFile = trainingFile;
             return this;
         }
-
-//        private MnistDataSet setNetworkArchitectureFile(File networkArchitectureFile) {
-//            this.networkArchitectureFile = networkArchitectureFile;
-//            return this;
-//        }
 
         public File getLabelsFile() {
             return labelsFile;
@@ -195,13 +189,9 @@ public class DataSetExamples {
             return trainingFile;
         }
 
-//        public File getNetworkArchitectureFile() {
-//            return networkArchitectureFile;
-//        }
-
         @Override
         public String toString() {
-            return "MnistDataSet{" +
+            return "ExampleDataSet{" +
                     "labelsFile=" + labelsFile +
                     ", trainingFile=" + trainingFile +
                     '}';
@@ -301,7 +291,7 @@ public class DataSetExamples {
         }
     }
 
-	public static MnistDataSet getCatDogDataSet() throws IOException {
+	public static ExampleDataSet getCatDogDataSet() throws IOException {
 		Path mnistPath = Paths.get("datasets", "cats_and_dogs");
 		File mnistFolder = mnistPath.toFile();
 		System.out.println(
@@ -336,7 +326,7 @@ public class DataSetExamples {
 //		if (!architectureFile.exists())
 //			throw new FileNotFoundException(architectureFile + " does not exist");
 
-		return new MnistDataSet()
+		return new ExampleDataSet()
 				.setLabelsFile(trainingLabelsFile).setTrainingFile(trainingIndexFile);
 	}
 }

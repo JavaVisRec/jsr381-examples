@@ -22,14 +22,15 @@ public class CatDogRecognition {
 	public static void main(String[] args) throws ClassifierCreationException, IOException {
 		// Download the dataset and calculate how much time it took
 		long start = System.currentTimeMillis();
-		DataSetExamples.MnistDataSet dataSet = DataSetExamples.getCatDogDataSet();
+		DataSetExamples.ExampleDataSet dataSet = DataSetExamples.getCatDogDataSet();
 		System.out.println(String.format("Took %d milliseconds to download and/or unzip the CatDog dataset",
 				System.currentTimeMillis() - start));
 
 		// Configuration to train the model
 		ImageClassifier<BufferedImage> classifier = NeuralNetImageClassifier.builder().inputClass(BufferedImage.class)
 				.imageHeight(128).imageWidth(128).labelsFile(dataSet.getLabelsFile())
-				.trainingFile(new File("network_arch.json"))
+				.trainingFile(dataSet.getTrainingFile())
+				//.trainingFile(new File("catdog_arch.json"))
 				.exportModel(Paths.get("catdog.dnet")).maxError(0.03f).maxEpochs(1000).learningRate(0.01f).build();
 
 		// Get input image from resources and use the classifier.
