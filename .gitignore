@@ -13,3 +13,4 @@ datasets/
 .classpath
 .project
 .settings/
+!/datasets/
