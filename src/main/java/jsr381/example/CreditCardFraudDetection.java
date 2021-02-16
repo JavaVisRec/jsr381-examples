@@ -4,18 +4,16 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-import javax.visrec.ml.ClassifierCreationException;
 import javax.visrec.ml.classification.BinaryClassifier;
+import javax.visrec.ml.classification.Classifiable;
 import javax.visrec.ml.classification.NeuralNetBinaryClassifier;
-
-import jsr381.example.spam.Classifiable;
 
 /**
  * @author Nishant
  *
  */
 public class CreditCardFraudDetection {
-	public static void main(String[] args) throws IOException, ClassifierCreationException {
+	public static void main(String[] args) throws IOException {
 		// create data set from specified file
 		URL fraudCsvResource = CreditCardFraudDetection.class.getClassLoader().getResource("creditcard.csv");
 		if (fraudCsvResource == null) {
@@ -25,7 +23,7 @@ public class CreditCardFraudDetection {
 		// Build binary classifer based on neural network
 		BinaryClassifier<float[]> fraudClassifier = NeuralNetBinaryClassifier.builder().inputClass(float[].class)
 				.inputsNum(29).hiddenLayers(29, 15).maxError(0.03f).maxEpochs(15000).learningRate(0.001f)
-				.trainingFile(new File(fraudCsvResource.getFile())).build();
+				.trainingPath((new File(fraudCsvResource.getFile()))).build();
 		Float result = fraudClassifier.classify(new CreditCardFraud().getClassifierInput());
 		System.out.println(result);
 	}

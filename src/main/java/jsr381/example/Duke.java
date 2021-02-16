@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Map;
+import javax.visrec.ml.model.ModelCreationException;
 
 /**
  * Hand written digit recognition using MNIST data set - image classification hello world.
@@ -19,16 +20,16 @@ import java.util.Map;
  */
 public class Duke {
 
-    public static void main(String[] args) throws IOException, ClassifierCreationException, ClassificationException {
+    public static void main(String[] args) throws IOException, ModelCreationException {
         
         // Configure and train ML model to classify images
         ImageClassifier<BufferedImage> classifier = NeuralNetImageClassifier.builder()
                 .inputClass(BufferedImage.class)
                 .imageHeight(64)
                 .imageWidth(64)
-                .labelsFile(new File("datasets/duke_and_nonduke/labels.txt")) // category labels
-                .trainingFile(new File("datasets/duke_and_nonduke/index.txt")) // list of images
-                .networkArchitecture(new File("src/main/resources/duke_net.json"))
+                .labelsFile(Paths.get("datasets/duke_and_nonduke/labels.txt")) // category labels
+                .trainingFile(Paths.get("datasets/duke_and_nonduke/index.txt")) // list of images
+                .networkArchitecture(Paths.get("src/main/resources/duke_net.json"))
                 .exportModel(Paths.get("duke.dnet"))
                 .maxError(0.05f)
                 .maxEpochs(1000)

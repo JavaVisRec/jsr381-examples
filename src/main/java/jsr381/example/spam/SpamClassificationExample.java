@@ -40,9 +40,9 @@ public class SpamClassificationExample {
         Float result = spamClassifier.classify(testEmail);
         System.out.println(result);
         
-        Email email2=null;
-        BinaryClassifier<Email> spamClassifier2 =null;
-        float spamProbability = spamClassifier2.classify(email2);
+        Email email2=new Email("Some email string ...");
+        //BinaryClassifier<Email> spamClassifier2 =null;
+        float spamProbability = spamClassifier.classify(email2.getClassifierInput());
     }
 
     static float[] getExampleEmailToClassify() {

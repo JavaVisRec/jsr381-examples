@@ -8,9 +8,10 @@ import java.nio.file.Paths;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
-import javax.visrec.ml.ClassifierCreationException;
+
 import javax.visrec.ml.classification.ImageClassifier;
 import javax.visrec.ml.classification.NeuralNetImageClassifier;
+import javax.visrec.ml.model.ModelCreationException;
 
 import jsr381.example.util.DataSetExamples;
 
@@ -19,7 +20,7 @@ import jsr381.example.util.DataSetExamples;
  *
  */
 public class CatDogRecognition {
-	public static void main(String[] args) throws ClassifierCreationException, IOException {
+	public static void main(String[] args) throws IOException, ModelCreationException {
 		// Download the dataset and calculate how much time it took
 		long start = System.currentTimeMillis();
 		DataSetExamples.ExampleDataSet dataSet = DataSetExamples.getCatDogDataSet();
@@ -28,8 +29,8 @@ public class CatDogRecognition {
 
 		// Configuration to train the model
 		ImageClassifier<BufferedImage> classifier = NeuralNetImageClassifier.builder().inputClass(BufferedImage.class)
-				.imageHeight(128).imageWidth(128).labelsFile(dataSet.getLabelsFile())
-				.trainingFile(dataSet.getTrainingFile())
+				.imageHeight(128).imageWidth(128).labelsFile(dataSet.getLabelsFile().toPath())
+				.trainingFile(dataSet.getTrainingFile().toPath())
 				//.trainingFile(new File("catdog_arch.json"))
 				.exportModel(Paths.get("catdog.dnet")).maxError(0.03f).maxEpochs(1000).learningRate(0.01f).build();
 

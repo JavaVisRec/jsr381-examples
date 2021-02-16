@@ -1,5 +1,7 @@
 package jsr381.example.spam;
 
+import javax.visrec.ml.classification.Classifiable;
+
 /**
  * Example Email class that implements Classifiable interface in order to enable classification of its instances.
  * It should wrap instance of some email, and provide interface that will allow building classifiers.
