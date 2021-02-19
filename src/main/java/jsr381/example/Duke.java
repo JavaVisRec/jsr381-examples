@@ -2,8 +2,6 @@ package jsr381.example;
 
 
 import javax.imageio.ImageIO;
-import javax.visrec.ml.ClassificationException;
-import javax.visrec.ml.ClassifierCreationException;
 import javax.visrec.ml.classification.ImageClassifier;
 import javax.visrec.ml.classification.NeuralNetImageClassifier;
 import java.awt.image.BufferedImage;

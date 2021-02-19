@@ -1,12 +1,12 @@
 package jsr381.example.spam;
 
-import javax.visrec.ml.ClassificationException;
-import javax.visrec.ml.ClassifierCreationException;
 import javax.visrec.ml.classification.BinaryClassifier;
 import javax.visrec.ml.classification.NeuralNetBinaryClassifier;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Paths;
+import javax.visrec.ml.model.ModelCreationException;
 
 /**
  * Minimum example for creating binary classifier from CSV file.
@@ -16,7 +16,7 @@ import java.net.URL;
  */
 public class SpamClassificationExample {
 
-    public static void main(String[] args) throws IOException, ClassificationException, ClassifierCreationException {
+    public static void main(String[] args) throws IOException, ModelCreationException {
         
         // create data set from specified file
         URL spamCsvResource = SpamClassificationExample.class.getClassLoader().getResource("spam.csv");
@@ -32,7 +32,7 @@ public class SpamClassificationExample {
                                                         .maxError(0.03f)
                                                         .maxEpochs(15000)
                                                         .learningRate(0.01f)                     
-                                                        .trainingFile(new File(spamCsvResource.getFile()))
+                                                        .trainingPath(Paths.get(spamCsvResource.getFile()))
                                                         .build();
 
         // using trained classifier

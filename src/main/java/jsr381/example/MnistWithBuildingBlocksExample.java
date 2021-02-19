@@ -3,8 +3,6 @@ package jsr381.example;
 import jsr381.example.util.DataSetExamples;
 
 import javax.imageio.ImageIO;
-import javax.visrec.ml.ClassificationException;
-import javax.visrec.ml.ClassifierCreationException;
 import javax.visrec.ml.classification.ImageClassifier;
 import javax.visrec.ml.classification.NeuralNetImageClassifier;
 import java.awt.image.BufferedImage;
@@ -13,6 +11,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.Map;
+import javax.visrec.ml.model.ModelCreationException;
 
 /**
  * Hand written digit recognition using MNIST data set - image classification hello world.
@@ -21,7 +20,7 @@ import java.util.Map;
  */
 public class MnistWithBuildingBlocksExample {
 
-    public static void main(String[] args) throws IOException, ClassifierCreationException, ClassificationException {
+    public static void main(String[] args) throws IOException, ModelCreationException {
         // Download the dataset and calculate how much time it took
         long start = System.currentTimeMillis();
         DataSetExamples.ExampleDataSet dataSet = DataSetExamples.getMnistDataSet();
@@ -32,9 +31,9 @@ public class MnistWithBuildingBlocksExample {
                 .inputClass(BufferedImage.class)
                 .imageHeight(28)
                 .imageWidth(28)
-                .labelsFile(dataSet.getLabelsFile())
-                .trainingFile(dataSet.getTrainingFile())
-                .networkArchitecture(new File("src/main/resources/mnist_arch.json")) //change this not in data set but from jsin file in resources folder?
+                .labelsFile(dataSet.getLabelsFile().toPath())
+                .trainingFile(dataSet.getTrainingFile().toPath())
+                .networkArchitecture(Paths.get("src/main/resources/mnist_arch.json")) //change this not in data set but from jsin file in resources folder?
                 .exportModel(Paths.get("mnist.dnet"))
                 .maxError(0.05f)
                 .maxEpochs(3)

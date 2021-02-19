@@ -2,8 +2,6 @@ package jsr381.example;
 
 import jsr381.example.util.DataSetExamples;
 
-import javax.visrec.ml.ClassificationException;
-import javax.visrec.ml.ClassifierCreationException;
 import javax.visrec.ml.classification.ImageClassifier;
 import javax.visrec.ml.classification.NeuralNetImageClassifier;
 import java.awt.image.BufferedImage;
@@ -12,6 +10,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import javax.imageio.ImageIO;
+import javax.visrec.ml.model.ModelCreationException;
 
 /**
  * Handwritten digit recognition using MNIST data set - image classification hello world.
@@ -21,7 +21,7 @@ import java.util.Map;
 @Deprecated
 public class MnistExample {
 
-    public static void main(String[] args) throws IOException, ClassificationException, ClassifierCreationException {
+    public static void main(String[] args) throws IOException, ModelCreationException {
         // Download the dataset and calculate how much time it took
         long start = System.currentTimeMillis();
         DataSetExamples.ExampleDataSet dataSet = DataSetExamples.getMnistDataSet();
@@ -57,7 +57,9 @@ public class MnistExample {
         if (input == null) {
             throw new IOException("Input file not found in resources");
         }
-        Map<String, Float> results = imageClassifier.classify(new File(input.getFile()));
+        
+        BufferedImage testImg = ImageIO.read(new File(input.getFile()));        
+        Map<String, Float> results = imageClassifier.classify(testImg);
 
         // Print the outcome
         System.out.println(results);
