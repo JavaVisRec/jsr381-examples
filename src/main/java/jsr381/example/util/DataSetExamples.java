@@ -22,8 +22,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+import javax.visrec.ml.data.Column;
 
 /**
  * @author Kevin Berendsen
@@ -77,6 +79,11 @@ public class DataSetExamples {
             dataSet.setColumnNames(colNames);
         }
 
+        List<Column> cols = dataSet.getColumns();
+        for(int i=0; i<outputsNum; i++) {
+            //dataSet.getColumns().get(inputsNum+i).setAsTarget(true);          
+          cols.get(inputsNum+i).setAsTarget(true);
+        }
 
         Arrays.stream(content)
                 .skip(skipCount)
@@ -158,10 +165,6 @@ public class DataSetExamples {
             //    .setNetworkArchitectureFile(architectureFile) // we dont need architecture in data set
                 .setLabelsFile(trainingLabelsFile)
                 .setTrainingFile(trainingIndexFile);
-    }
-
-    public static void main(String[] args) throws IOException {
-        System.out.println(getMnistDataSet());
     }
 
     public static class ExampleDataSet {
