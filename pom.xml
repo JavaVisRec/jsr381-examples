@@ -15,24 +15,18 @@
 
     <dependencies>
         <dependency>
-            <groupId>javax.visrec</groupId>
-            <artifactId>jsr381-examples</artifactId>
-            <version>1</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>visrec-api</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
+            <version>1.0.5</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>visrec-ri</artifactId>
-            <version>1.0.2-SNAPSHOT</version>
+            <version>1.0.3</version>
         </dependency>
     </dependencies>
 
-    <repositories>
+    <!--repositories>
         <repository>
             <id>snapshots</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
@@ -43,7 +37,7 @@
                 <enabled>false</enabled>
             </releases>
         </repository>
-    </repositories>
+    </repositories-->
 
     <build>
         <plugins>
