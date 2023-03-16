@@ -1,6 +1,5 @@
 package jsr381.example;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
@@ -16,16 +15,11 @@ import javax.visrec.ml.model.ModelCreationException;
  */
 public class CreditCardFraudDetection {
 	public static void main(String[] args) throws IOException, ModelCreationException {
-		// create data set from specified file
-		URL fraudCsvResource = CreditCardFraudDetection.class.getClassLoader().getResource("creditcard.csv");
-		if (fraudCsvResource == null) {
-			throw new IOException("creditcard.csv not found");
-		}
 
 		// Build binary classifer based on neural network
 		BinaryClassifier<float[]> fraudClassifier = NeuralNetBinaryClassifier.builder().inputClass(float[].class)
-				.inputsNum(29).hiddenLayers(29, 15).maxError(0.03f).maxEpochs(15000).learningRate(0.001f)
-				.trainingPath(Paths.get(fraudCsvResource.getFile())).build();
+				.inputsNum(29).hiddenLayers(29, 15).maxError(0.03f).maxEpochs(15000).learningRate(0.01f)
+				.trainingPath(Paths.get("datasets/creditcard.csv")).build();
 		Float result = fraudClassifier.classify(new CreditCardFraud().getClassifierInput());
 		System.out.println(result);
 	}
